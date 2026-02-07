@@ -2,7 +2,6 @@
 import { client_setClientToken } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 import type { APIGatewayEvent, APIGatewayProxyResultV2 } from 'aws-lambda';
 
-import { setToken } from '../../api-clients/cached-loan-api-client';
 import { config, initConfig } from '../../config/config';
 import { retry } from '../../shared/helpers/retry';
 import { Texts } from '../../shared/telegram/texts';
@@ -54,7 +53,6 @@ export const handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyRe
   console.log('Processing event: ', JSON.stringify(event));
 
   await initConfig();
-  setToken(config.value.loanApi.token);
   client_setClientToken(config.value.telegram.token);
 
   try {

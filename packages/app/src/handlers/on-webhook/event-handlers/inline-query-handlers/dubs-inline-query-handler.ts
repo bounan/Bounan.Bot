@@ -1,6 +1,6 @@
 ﻿import type { InlineQuery, InlineQueryResultArticle } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
-import { getDubs } from '../../../../api-clients/cached-loan-api-client';
+import { getDubs } from '../../../../api-clients/loan-api-client';
 import { dubToKey } from '../../../../shared/helpers/dub-to-key';
 import { getStudioLogoUrl } from '../../../../shared/studio-logos-provider/studio-logos-provider';
 import { Texts } from '../../../../shared/telegram/texts';

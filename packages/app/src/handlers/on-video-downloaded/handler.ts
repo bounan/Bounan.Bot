@@ -1,7 +1,6 @@
 ﻿import { client_setClientToken } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 import type { SNSEvent } from 'aws-lambda';
 
-import { setToken } from '../../api-clients/cached-loan-api-client';
 import { config, initConfig } from '../../config/config';
 import { retry } from '../../shared/helpers/retry';
 import { process } from './processor';
@@ -19,7 +18,6 @@ export const handler = async (event: SNSEvent): Promise<void> => {
   console.log('Processing event: ', JSON.stringify(event));
 
   await initConfig();
-  setToken(config.value.loanApi.token);
   client_setClientToken(config.value.telegram.token);
 
   for (const record of event.Records) {

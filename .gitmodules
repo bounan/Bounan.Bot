@@ -1,6 +1,3 @@
 [submodule "third-party/common"]
 	path = third-party/common
 	url = https://github.com/HRAshton/BoUnAn.Common.git
-[submodule "third-party/loan-api"]
-	path = third-party/loan-api
-	url = https://github.com/HRAshton/LoanAPI.git

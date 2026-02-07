@@ -21,10 +21,16 @@ export class Stack extends cdk.Stack {
 
     const config = getConfig(this, 'bounan:', '/bounan/bot/deploy-config/');
 
+    const loanApiFunction = lambda.Function.fromFunctionAttributes(
+      this, 'LoanApiFunction', {
+        functionArn: config.loanApiFunctionArn,
+        skipPermissions: true,
+      });
+
     const logGroup = this.createLogGroup();
     const tables = this.createTables();
     const parameter = this.saveParameters(tables, config);
-    const functions = this.createLambdas(logGroup, tables, parameter);
+    const functions = this.createLambdas(logGroup, tables, parameter, loanApiFunction);
     this.setErrorAlarm(logGroup, config);
 
     const videoDownloadedTopic = sns.Topic.fromTopicArn(
@@ -113,6 +119,7 @@ export class Stack extends cdk.Stack {
     logGroup: logs.LogGroup,
     tables: Record<Table, dynamodb.Table>,
     parameter: ssm.StringParameter,
+    loanApiFunction: lambda.IFunction,
   ): Record<LambdaHandler, lambda.Function> {
     // @ts-expect-error - we know that the keys are the same
     const functions: Record<LambdaHandler, lambda.Function> = {};
@@ -129,6 +136,7 @@ export class Stack extends cdk.Stack {
       tables[Table.Subscriptions].grantReadWriteData(func);
       tables[Table.Library].grantReadWriteData(func);
       parameter.grantRead(func);
+      loanApiFunction.grantInvoke(func);
 
       functions[handlerName] = func;
     });
@@ -145,8 +153,7 @@ export class Stack extends cdk.Stack {
         getAnimeFunctionName: config.getAnimeFunctionName,
       },
       loanApi: {
-        token: config.loanApiToken,
-        maxConcurrentRequests: cdk.Token.asNumber(config.loanApiMaxConcurrentRequests),
+        functionArn: config.loanApiFunctionArn,
       },
       database: {
         usersTableName: tables[Table.Users].tableName,

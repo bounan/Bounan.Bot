@@ -6,7 +6,7 @@ import configFile from './configuration.json';
 
 export interface Config {
   alertEmail: string;
-  loanApiToken: string;
+  loanApiFunctionArn: string;
 
   telegramBotToken: string;
   telegramBotVideoChatId: string;
@@ -31,7 +31,7 @@ const getSsmValue = (stack: cdk.Stack, prefix: string, parameterSuffix: keyof Co
 
 export const getConfig = (stack: cdk.Stack, cfnPrefix: string, ssmPrefix: string): Config => ({
   alertEmail: getCfnValue('alertEmail', cfnPrefix, ExportNames.AlertEmail),
-  loanApiToken: getCfnValue('loanApiToken', cfnPrefix, ExportNames.LoanApiToken),
+  loanApiFunctionArn: configFile['loanApiFunctionArn'],
 
   telegramBotToken: getSsmValue(stack, ssmPrefix, 'telegramBotToken'),
   telegramBotVideoChatId: getSsmValue(stack, ssmPrefix, 'telegramBotVideoChatId'),

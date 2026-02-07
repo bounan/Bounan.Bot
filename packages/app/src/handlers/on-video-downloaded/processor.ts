@@ -6,8 +6,8 @@
 import { copyMessage, sendMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import type { VideoDownloadedNotification } from '../../../../../third-party/common/ts/interfaces';
-import { getAllExistingVideos } from '../../api-clients/cached-loan-api-client';
 import { getShikiAnimeInfo } from '../../api-clients/cached-shikimori-client';
+import { getEpisodes } from '../../api-clients/loan-api-client';
 import { config } from '../../config/config';
 import { getKeyboard } from '../../shared/telegram/get-keyboard';
 import { getVideoDescription } from '../../shared/telegram/get-video-description';
@@ -82,11 +82,10 @@ export const process = async (videoDownloadedNotification: VideoDownloadedNotifi
     animeInfo,
     videoDownloadedNotification.videoKey,
     videoDownloadedNotification.scenes);
-  const episodes = await getAllExistingVideos(parseInt(animeInfo.id));
-  const videosWithDub = episodes.filter(x => x.dub === dub);
+  const episodes = await getEpisodes(parseInt(animeInfo.id), dub);
   const keyboard = getKeyboard(
     videoDownloadedNotification.videoKey,
-    videosWithDub.map(x => x.episode),
+    episodes,
     videoDownloadedNotification.publishingDetails,
   );
 

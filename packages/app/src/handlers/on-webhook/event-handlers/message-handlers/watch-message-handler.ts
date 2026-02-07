@@ -7,8 +7,8 @@ import { copyMessage, sendMessage } from '@lightweight-clients/telegram-bot-api-
 
 import type { BotResponse, VideoKey } from '../../../../../../../third-party/common/ts/interfaces';
 import { getVideoInfo } from '../../../../api-clients/animan-client';
-import { getAllExistingVideos } from '../../../../api-clients/cached-loan-api-client';
 import { getShikiAnimeInfo } from '../../../../api-clients/cached-shikimori-client';
+import { getDubs, getEpisodes } from '../../../../api-clients/loan-api-client';
 import { config } from '../../../../config/config';
 import { assert } from '../../../../shared/helpers/assert';
 import { dubToKey } from '../../../../shared/helpers/dub-to-key';
@@ -19,20 +19,16 @@ import { subscribeOneTime } from '../../../subscriptions-repository';
 import { WatchCommandDto } from '../../command-dtos';
 import type { MessageHandler } from '../query-handler';
 
-const sendSwitchDubButtons = async (chatId: number, searchResults: VideoKey[], episode: number) => {
-  const inOtherDubs = searchResults
-    .filter(item => item.episode === episode)
-    .sort((a, b) => a.dub.localeCompare(b.dub));
-
-  console.log('Episode not found in dub. Other dubs: ', inOtherDubs.map(ep => ep.dub));
+const sendSwitchDubButtons = async (chatId: number, myAnimeListId: number, dubNames: string[], episode: number) => {
+  console.log('Episode not found in dub. Other dubs: ', dubNames);
 
   await sendMessage({
     chat_id: chatId,
     text: Texts.Message__EpisodeWithDubNotFound,
     reply_markup: {
-      inline_keyboard: inOtherDubs.map(ep => [{
-        text: ep.dub,
-        callback_data: new WatchCommandDto(ep.myAnimeListId, dubToKey(ep.dub), episode).toString(),
+      inline_keyboard: dubNames.map(dub => [{
+        text: dub,
+        callback_data: new WatchCommandDto(myAnimeListId, dubToKey(dub), episode).toString(),
       }]),
     },
   });
@@ -63,12 +59,8 @@ const sendVideo = async (
 const sendVideoResult = async (
   message: Pick<Message, 'chat' | 'text'>,
   videoKey: VideoKey,
-  searchResults: VideoKey[],
+  episodesInDub: number[],
 ) => {
-  const episodesInDub = searchResults
-    .filter(item => item.dub === videoKey.dub)
-    .map(item => item.episode)
-    .sort((a, b) => a - b);
   if (episodesInDub.length === 0) {
     throw new Error('No episodes found');
   }
@@ -136,9 +128,10 @@ const handler: MessageHandler = async (message) => {
     return;
   }
 
-  const searchResults = await getAllExistingVideos(commandDto.myAnimeListId);
-  if (!searchResults || searchResults.length === 0) {
-    console.log('No videos found');
+  const allDubs = await getDubs(commandDto.myAnimeListId);
+  const matchingDub = allDubs.find(dub => dubToKey(dub.name) === dubToKey(commandDto.dub));
+  if (!matchingDub) {
+    console.log('No matching dub found');
     await sendMessage({
       chat_id: message.chat.id,
       text: Texts.Search__NoResultsInLoan,
@@ -146,16 +139,19 @@ const handler: MessageHandler = async (message) => {
     return;
   }
 
-  const selectedVideo = searchResults
-    .find(v => dubToKey(v.dub) === commandDto.dub && v.episode === commandDto.episode);
-  console.log('Selected video: ', selectedVideo);
-  if (!selectedVideo) {
-    console.warn('Video not found in dub');
-    await sendSwitchDubButtons(message.chat.id, searchResults, commandDto.episode);
+  const videoKey = { ...commandDto, dub: matchingDub.name };
+
+  const allEpisodes = await getEpisodes(videoKey.myAnimeListId, videoKey.dub);
+  if (!allEpisodes || allEpisodes.length === 0) {
+    console.log('Episode not found in dub', videoKey);
+    const otherDubs = allDubs
+      .map(dub => dub.name)
+      .filter(dubName => dubName !== videoKey.dub);
+    await sendSwitchDubButtons(message.chat.id, videoKey.myAnimeListId, otherDubs, videoKey.episode);
     return;
   }
 
-  await sendVideoResult(message, selectedVideo, searchResults);
+  await sendVideoResult(message, videoKey, allEpisodes);
 
   console.log('Watch command handled');
 }

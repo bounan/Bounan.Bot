@@ -1,7 +1,7 @@
 ﻿import type { InlineQueryResultArticle } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
-import { getDubs } from '../../../../api-clients/cached-loan-api-client';
 import { searchAnime } from '../../../../api-clients/cached-shikimori-client';
+import { getDubs } from '../../../../api-clients/loan-api-client';
 import { InfoCommandDto } from '../../command-dtos';
 import { KnownInlineAnswers } from '../../constants/known-inline-answers';
 import type { InlineQueryHandler } from '../query-handler';
