@@ -3,33 +3,31 @@ packages:
   - third-party/common/ts
 
 catalog:
-  '@aws-sdk/client-dynamodb': 3.975.0
-  '@aws-sdk/client-lambda': 3.975.0
-  '@aws-sdk/client-ssm': 3.975.0
-  '@aws-sdk/lib-dynamodb': 3.975.0
-  '@eslint/js': 9.39.2
+  '@aws-sdk/client-dynamodb': 3.985.0
+  '@aws-sdk/client-lambda': 3.985.0
+  '@aws-sdk/client-ssm': 3.985.0
+  '@aws-sdk/lib-dynamodb': 3.985.0
+  '@eslint/js': 10.0.1
   '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.1.1
   '@lightweight-clients/telegram-bot-api-lightweight-client': 9.3.0
   '@types/aws-lambda': 8.10.160
-  '@types/node': 25.0.10
+  '@types/node': 25.2.1
   '@vitest/coverage-v8': 4.0.18
   '@vitest/ui': 4.0.18
-  aws-cdk: 2.1103.0
-  aws-cdk-lib: 2.236.0
+  aws-cdk: 2.1105.0
+  aws-cdk-lib: 2.237.1
   cdk-lambda-llrt: 0.1.4
   constructs: 10.4.5
   cross-env: 10.1.0
-  eslint: 9.39.2
+  eslint: 10.0.0
   eslint-plugin-simple-import-sort: 12.1.1
   jiti: 2.6.1
-  knip: 5.82.1
+  knip: 5.83.1
   npm-run-all: 4.1.5
   typescript: 5.9.3
   typescript-eslint: 8.54.0
   vitest: 4.0.18
 
-# Use hoisted node linker for compatibility with LlrtFunction construct. This construct bundles
-# dependencies using docker, which does not work with host's symlinks.
 nodeLinker: hoisted
 
 onlyBuiltDependencies:
