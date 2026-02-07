@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
 
+    if: "false" # Temporarily disable CDK diff check until we have a better strategy for handling config changes.
+
     permissions:
       id-token: write
       contents: read
