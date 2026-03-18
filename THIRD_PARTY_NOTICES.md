@@ -35,10 +35,6 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-lambda
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-ssm
 
-## @aws-sdk/client-sso undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-sso
-
 ## @aws-sdk/core undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/core
@@ -345,7 +341,11 @@ https://github.com/lightweight-clients/telegram-bot-api-lightweight-client
 
 ## bowser undefined
 License: MIT
-https://github.com/lancedikson/bowser
+https://github.com/bowser-js/bowser
+
+## fast-xml-builder undefined
+License: MIT
+https://github.com/NaturalIntelligence/fast-xml-builder#readme
 
 ## fast-xml-parser undefined
 License: MIT
@@ -358,6 +358,10 @@ https://github.com/yomguithereal/mnemonist#readme
 ## obliterator undefined
 License: MIT
 https://github.com/yomguithereal/obliterator#readme
+
+## path-expression-matcher undefined
+License: MIT
+https://github.com/NaturalIntelligence/path-expression-matcher#readme
 
 ## strnum undefined
 License: MIT
