@@ -6,8 +6,7 @@
   "telegramBotPublisherGroupName": "",
   "getAnimeFunctionName": "",
   "videoDownloadedTopicArn": "",
-  "loanApiMaxConcurrentRequests": "",
-  "retriesMax": "",
-  "retriesDelayMs": "",
+  "retriesMax": "1",
+  "retriesDelayMs": "1000",
   "studioLogosUrl": ""
 }
