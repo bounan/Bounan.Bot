@@ -39,8 +39,6 @@ jobs:
     timeout-minutes: 2
     needs: code-quality
 
-    if: "false" # Temporarily disable CDK diff check until we have a better strategy for handling config changes.
-
     permissions:
       id-token: write
       contents: write
