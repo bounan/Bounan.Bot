@@ -15,16 +15,16 @@ jobs:
     timeout-minutes: 2
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.2
         with:
           submodules: 'true'
-          token: ${{ secrets.LOAN_API_PAT_TOKEN }}
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
 
       - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version: 22
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -32,28 +32,38 @@ jobs:
       - name: Perform prerelease checks
         run: pnpm run prerelease
 
-  diff:
-    name: CDK Diff Check
+  deploy:
+    name: Deploy
+    environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 2
+    needs: code-quality
 
     if: "false" # Temporarily disable CDK diff check until we have a better strategy for handling config changes.
 
     permissions:
       id-token: write
-      contents: read
+      contents: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.2
         with:
           submodules: 'true'
-          token: ${{ secrets.LOAN_API_PAT_TOKEN }}
 
-      - uses: actions/setup-node@v4
+      - name: Bump version and push tag
+        id: tag
+        uses: mathieudutour/github-tag-action@v6.2
         with:
-          node-version: 20
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: ""
+          default_bump: patch
 
       - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v6.3.0
+        with:
+          node-version: 22
+          cache: 'pnpm'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --filter infra...
@@ -64,8 +74,8 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_PROD }}:role/github-actions-cdk-diff
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_PROD }}:role/github-actions-cdk-deploy-north-1
           aws-region: eu-north-1
 
-      - name: CDK diff (fails if differences)
-        run: pnpm run cdk:diff --all --no-color --fail
+      - name: Perform release
+        run: pnpm run cdk:deploy --require-approval broadening
