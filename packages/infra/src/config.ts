@@ -30,7 +30,7 @@ const getSsmValue = (stack: cdk.Stack, prefix: string, parameterSuffix: keyof Co
 
 export const getConfig = (stack: cdk.Stack, cfnPrefix: string, ssmPrefix: string): Config => ({
   alertEmail: getCfnValue('alertEmail', cfnPrefix, ExportNames.AlertEmail),
-  loanApiFunctionArn: configFile['loanApiFunctionArn'],
+  loanApiFunctionArn: getCfnValue('loanApiFunctionArn', cfnPrefix, ExportNames.LoanApiFunctionArn),
 
   telegramBotToken: getSsmValue(stack, ssmPrefix, 'telegramBotToken'),
   telegramBotVideoChatId: getSsmValue(stack, ssmPrefix, 'telegramBotVideoChatId'),
