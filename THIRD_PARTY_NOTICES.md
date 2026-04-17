@@ -147,10 +147,6 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/xml-builder
 License: Apache-2.0
 https://github.com/awslabs/aws-lambda-invoke-store
 
-## @smithy/abort-controller undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/abort-controller
-
 ## @smithy/config-resolver undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/config-resolver
