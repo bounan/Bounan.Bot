@@ -60,8 +60,9 @@ const sendErrorMessages = async (caption: string, keyboard: InlineKeyboardMarkup
   }
 }
 
-export const process = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
-  console.log('Processing videos: ', JSON.stringify(videoDownloadedNotification));
+const notifySubscribers = async (
+  videoDownloadedNotification: VideoDownloadedNotification,
+): Promise<void> => {
   const { myAnimeListId, dub, episode } = videoDownloadedNotification.videoKey;
 
   const animeSubscriptions = await getSubscriptions(videoDownloadedNotification.videoKey);
@@ -92,12 +93,29 @@ export const process = async (videoDownloadedNotification: VideoDownloadedNotifi
   if (videoDownloadedNotification.messageId) {
     const { videoKey, messageId } = videoDownloadedNotification;
     await Promise.all([
-      registerVideo(myAnimeListId, dub),
       removeOneTimeSubscribers(videoKey),
       sendVideoMessages(messageId, description, keyboard, oneTimeSubscribers),
     ])
   } else {
     await sendErrorMessages(description, keyboard, oneTimeSubscribers);
+  }
+}
+
+const registerInLibraryTable = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
+  const { myAnimeListId, dub } = videoDownloadedNotification.videoKey;
+  await registerVideo(myAnimeListId, dub);
+}
+
+export const process = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
+  console.log('Processing videos: ', JSON.stringify(videoDownloadedNotification));
+
+  if (videoDownloadedNotification.messageId) {
+    await Promise.all([
+      notifySubscribers(videoDownloadedNotification),
+      registerInLibraryTable(videoDownloadedNotification),
+    ]);
+  } else {
+    await notifySubscribers(videoDownloadedNotification);
   }
 
   console.log('Animes processed');
