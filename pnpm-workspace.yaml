@@ -3,30 +3,30 @@ packages:
   - third-party/common/ts
 
 catalog:
-  '@aws-sdk/client-dynamodb': 3.1012.0
-  '@aws-sdk/client-lambda': 3.1012.0
-  '@aws-sdk/client-ssm': 3.1012.0
-  '@aws-sdk/lib-dynamodb': 3.1012.0
+  '@aws-sdk/client-dynamodb': 3.1030.0
+  '@aws-sdk/client-lambda': 3.1030.0
+  '@aws-sdk/client-ssm': 3.1030.0
+  '@aws-sdk/lib-dynamodb': 3.1030.0
   '@eslint/js': 10.0.1
   '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.1.1
-  '@lightweight-clients/telegram-bot-api-lightweight-client': 9.5.0
+  '@lightweight-clients/telegram-bot-api-lightweight-client': 9.6.0
   '@types/aws-lambda': 8.10.161
-  '@types/node': 25.5.0
-  '@vitest/coverage-v8': 4.1.0
-  '@vitest/ui': 4.1.0
-  aws-cdk: 2.1112.0
-  aws-cdk-lib: 2.243.0
+  '@types/node': 25.6.0
+  '@vitest/coverage-v8': 4.1.4
+  '@vitest/ui': 4.1.4
+  aws-cdk: 2.1118.0
+  aws-cdk-lib: 2.249.0
   cdk-lambda-llrt: 0.1.4
-  constructs: 10.5.1
+  constructs: 10.6.0
   cross-env: 10.1.0
-  eslint: 10.0.3
-  eslint-plugin-simple-import-sort: 12.1.1
+  eslint: 10.2.0
+  eslint-plugin-simple-import-sort: 13.0.0
   jiti: 2.6.1
-  knip: 5.88.0
+  knip: 6.4.1
   npm-run-all2: 8.0.4
-  typescript: 5.9.3
-  typescript-eslint: 8.57.1
-  vitest: 4.1.0
+  typescript: 6.0.2
+  typescript-eslint: 8.58.2
+  vitest: 4.1.4
 
 nodeLinker: hoisted
 
