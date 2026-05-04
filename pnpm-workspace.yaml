@@ -8,7 +8,7 @@ catalog:
   '@aws-sdk/client-ssm': 3.1040.0
   '@aws-sdk/lib-dynamodb': 3.1040.0
   '@eslint/js': 10.0.1
-  '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.1.1
+  '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.2.0
   '@lightweight-clients/telegram-bot-api-lightweight-client': 9.6.0
   '@types/aws-lambda': 8.10.161
   '@types/node': 25.6.0
