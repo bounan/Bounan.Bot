@@ -99,6 +99,10 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-logg
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-recursion-detection
 
+## @aws-sdk/middleware-sdk-s3 undefined
+License: Apache-2.0
+https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-sdk-s3
+
 ## @aws-sdk/middleware-user-agent undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-user-agent
@@ -111,6 +115,10 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients
 License: Apache-2.0
 https://github.com/awslabs/smithy-typescript/tree/main/packages-internal/region-config-resolver
 
+## @aws-sdk/signature-v4-multi-region undefined
+License: Apache-2.0
+https://github.com/aws/aws-sdk-js-v3/tree/main/packages/signature-v4-multi-region
+
 ## @aws-sdk/token-providers undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
@@ -118,6 +126,10 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
 ## @aws-sdk/types undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
+
+## @aws-sdk/util-arn-parser undefined
+License: Apache-2.0
+https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-arn-parser
 
 ## @aws-sdk/util-dynamodb undefined
 License: Apache-2.0
@@ -334,6 +346,10 @@ https://github.com/lightweight-clients/shikimori-graphql-api-lightweight-client
 ## @lightweight-clients/telegram-bot-api-lightweight-client undefined
 License: MIT
 https://github.com/lightweight-clients/telegram-bot-api-lightweight-client
+
+## @nodable/entities undefined
+License: MIT
+https://github.com/nodable/val-parsers#readme
 
 ## bowser undefined
 License: MIT
