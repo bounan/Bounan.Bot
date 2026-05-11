@@ -70,7 +70,7 @@ jobs:
         run: pnpm run textgen
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6
+        uses: aws-actions/configure-aws-credentials@d979d5b3a71173a29b74b5b88418bfda9437d885 # v6
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_PROD }}:role/github-actions-cdk-deploy-north-1
           aws-region: eu-north-1
