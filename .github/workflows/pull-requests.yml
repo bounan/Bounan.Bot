@@ -6,9 +6,9 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   prerelease-checks:
     name: Prerelease Checks
     uses: ./.github/workflows/shared-prerelease-checks.yml
-    secrets: inherit

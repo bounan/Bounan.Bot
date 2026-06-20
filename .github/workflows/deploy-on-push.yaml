@@ -12,7 +12,8 @@ jobs:
   prerelease-checks:
     name: Prerelease Checks
     uses: ./.github/workflows/shared-prerelease-checks.yml
-    secrets: inherit
+    with:
+      force: ${{ github.event_name == 'workflow_dispatch' }}
 
   deploy:
     name: Deploy
@@ -20,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     needs: prerelease-checks
+    if: ${{ needs.prerelease-checks.outputs.code-changed == 'true' }}
 
     permissions:
       id-token: write

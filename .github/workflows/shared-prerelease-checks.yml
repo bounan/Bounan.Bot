@@ -2,13 +2,57 @@ name: Shared Prerelease Checks
 
 on:
   workflow_call:
+    inputs:
+      force:
+        description: Run checks even when no build inputs changed
+        type: boolean
+        default: false
+    outputs:
+      code-changed:
+        description: Whether build, runtime, or test inputs changed
+        value: ${{ jobs.changes.outputs.code }}
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
+  changes:
+    name: Detect Build Changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      code: ${{ inputs.force || steps.filter.outputs.code == 'true' }}
+
+    steps:
+      - name: Check out repository for push comparison
+        if: ${{ !inputs.force && github.event_name != 'pull_request' }}
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Detect build input changes
+        if: ${{ !inputs.force }}
+        id: filter
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            code:
+              - 'packages/**'
+              - 'third-party/common'
+              - '.gitmodules'
+              - 'scripts/**'
+              - '**/package.json'
+              - 'pnpm-lock.yaml'
+              - 'pnpm-workspace.yaml'
+              - '**/tsconfig*.json'
+              - 'eslint.config.*'
+              - 'vitest.config.*'
+              - 'knip.json'
+
   prerelease-checks:
     name: Prerelease Checks
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     services:
