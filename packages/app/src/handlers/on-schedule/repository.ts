@@ -1,8 +1,11 @@
 ﻿import { DeleteCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 
+import { createLogger } from '../../../../../third-party/common/ts/runtime/logger';
 import { config } from '../../config/config';
 import type { AnimeEntity, AnimeKey } from '../../models/anime-entity';
 import { docClient, getAnimeKey } from '../../shared/repository';
+
+const logger = createLogger('@app/handlers/on-schedule/repository');
 
 export const getAll = async (): Promise<AnimeEntity[]> => {
   const command = new ScanCommand({
@@ -21,5 +24,5 @@ export const deleteAnime = async (animeKey: AnimeKey): Promise<void> => {
   });
 
   const result = await docClient.send(command);
-  console.log('Deleted anime: ' + JSON.stringify(result));
+  logger.info('Deleted item', { result });
 }

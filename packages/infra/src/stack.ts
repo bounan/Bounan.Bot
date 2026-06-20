@@ -2,7 +2,8 @@
 import * as cw from 'aws-cdk-lib/aws-cloudwatch';
 import * as cloudwatchActions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
+import type * as lambda from 'aws-cdk-lib/aws-lambda';
+import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -23,7 +24,7 @@ export class ToFillCdkStack extends cfn.Stack {
 
     const table = this.createTable();
     const logGroup = this.createLogGroup();
-    const parameter = this.saveParameters(table, config);
+    const parameter = this.saveParameters(table);
     this.createLambdas(table, logGroup, parameter);
     this.setErrorAlarm(logGroup, config);
 
@@ -54,7 +55,7 @@ export class ToFillCdkStack extends cfn.Stack {
     topic.addSubscription(new subs.EmailSubscription(config.alertEmail));
 
     const metricFilter = logGroup.addMetricFilter('ErrorMetricFilter', {
-      filterPattern: logs.FilterPattern.anyTerm('ERROR'),
+      filterPattern: logs.FilterPattern.anyTerm('ERROR', 'error'),
       metricNamespace: this.stackName,
       metricName: 'ErrorCount',
       metricValue: '1',
@@ -83,6 +84,7 @@ export class ToFillCdkStack extends cfn.Stack {
         entry: `../app/src/handlers/${handlerName}/handler.ts`,
         handler: 'handler',
         logGroup: logGroup,
+        loggingFormat: LoggingFormat.JSON,
         timeout: cfn.Duration.seconds(30),
       });
 
@@ -95,10 +97,7 @@ export class ToFillCdkStack extends cfn.Stack {
     return functions;
   }
 
-  private saveParameters(
-    filesTable: dynamodb.Table,
-    config: Config,
-  ): ssm.StringParameter {
+  private saveParameters(filesTable: dynamodb.Table): ssm.StringParameter {
     const value = {
       database: {
         tableName: filesTable.tableName,

@@ -1,15 +1,18 @@
-﻿import type { EventBridgeEvent } from 'aws-lambda';
+import type { EventBridgeEvent } from 'aws-lambda';
 
+import { createLogger } from '../../../../../third-party/common/ts/runtime/logger';
 import { initConfig } from '../../config/config';
 
+const logger = createLogger('@app/handlers/on-schedule/handler');
+
 const process = async (): Promise<void> => {
-  console.log('Processing videos');
+  logger.info('Processing scheduled work');
   // TODO
 }
 
 export const handler = async (event: EventBridgeEvent<never, never>): Promise<void> => {
-  console.log('Processing event: ', JSON.stringify(event));
+  logger.info('Processing event', { event });
   await initConfig();
   await process();
-  console.info('done');
+  logger.info('Done');
 };
