@@ -87,33 +87,9 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-endpoint-discovery
 
-## @aws-sdk/middleware-host-header undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-host-header
-
-## @aws-sdk/middleware-logger undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-logger
-
-## @aws-sdk/middleware-recursion-detection undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-recursion-detection
-
-## @aws-sdk/middleware-sdk-s3 undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-sdk-s3
-
-## @aws-sdk/middleware-user-agent undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-user-agent
-
 ## @aws-sdk/nested-clients undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients
-
-## @aws-sdk/region-config-resolver undefined
-License: Apache-2.0
-https://github.com/awslabs/smithy-typescript/tree/main/packages-internal/region-config-resolver
 
 ## @aws-sdk/signature-v4-multi-region undefined
 License: Apache-2.0
@@ -127,29 +103,13 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
 
-## @aws-sdk/util-arn-parser undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-arn-parser
-
 ## @aws-sdk/util-dynamodb undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 
-## @aws-sdk/util-endpoints undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-endpoints
-
 ## @aws-sdk/util-locate-window undefined
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-locate-window
-
-## @aws-sdk/util-user-agent-browser undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-user-agent-browser
-
-## @aws-sdk/util-user-agent-node undefined
-License: Apache-2.0
-https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-user-agent-node
 
 ## @aws-sdk/xml-builder undefined
 License: Apache-2.0
@@ -159,10 +119,6 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/xml-builder
 License: Apache-2.0
 https://github.com/awslabs/aws-lambda-invoke-store
 
-## @smithy/config-resolver undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/config-resolver
-
 ## @smithy/core undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core
@@ -171,173 +127,33 @@ https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/credential-provider-imds
 
-## @smithy/eventstream-codec undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/eventstream-codec
-
-## @smithy/eventstream-serde-browser undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/eventstream-serde-browser
-
-## @smithy/eventstream-serde-config-resolver undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/eventstream-serde-config-resolver
-
-## @smithy/eventstream-serde-node undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/eventstream-serde-node
-
-## @smithy/eventstream-serde-universal undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/eventstream-serde-universal
-
 ## @smithy/fetch-http-handler undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/fetch-http-handler
 
-## @smithy/hash-node undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/hash-node
-
-## @smithy/invalid-dependency undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/invalid-dependency
-
 ## @smithy/is-array-buffer undefined
 License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/is-array-buffer
-
-## @smithy/middleware-content-length undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/middleware-content-length
-
-## @smithy/middleware-endpoint undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/middleware-endpoint
-
-## @smithy/middleware-retry undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/middleware-retry
-
-## @smithy/middleware-serde undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/middleware-serde
-
-## @smithy/middleware-stack undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/middleware-stack
-
-## @smithy/node-config-provider undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/node-config-provider
+https://github.com/awslabs/smithy-typescript/tree/main/packages/is-array-buffer
 
 ## @smithy/node-http-handler undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/node-http-handler
 
-## @smithy/property-provider undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/property-provider
-
-## @smithy/protocol-http undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/protocol-http
-
-## @smithy/querystring-builder undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/querystring-builder
-
-## @smithy/querystring-parser undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/querystring-parser
-
-## @smithy/service-error-classification undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/service-error-classification
-
-## @smithy/shared-ini-file-loader undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/shared-ini-file-loader
-
 ## @smithy/signature-v4 undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/signature-v4
-
-## @smithy/smithy-client undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/smithy-client
 
 ## @smithy/types undefined
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/types
 
-## @smithy/url-parser undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/url-parser
-
-## @smithy/util-base64 undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-base64
-
-## @smithy/util-body-length-browser undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-body-length-browser
-
-## @smithy/util-body-length-node undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-body-length-node
-
 ## @smithy/util-buffer-from undefined
 License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-buffer-from
-
-## @smithy/util-config-provider undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-config-provider
-
-## @smithy/util-defaults-mode-browser undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-defaults-mode-node
-
-## @smithy/util-defaults-mode-node undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-defaults-mode-node
-
-## @smithy/util-endpoints undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/master/packages/util-endpoints
-
-## @smithy/util-hex-encoding undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-hex-encoding
-
-## @smithy/util-middleware undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/master/packages/util-middleware
-
-## @smithy/util-retry undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/master/packages/util-retry
-
-## @smithy/util-stream undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-stream
-
-## @smithy/util-uri-escape undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-uri-escape
+https://github.com/awslabs/smithy-typescript/tree/main/packages/util-buffer-from
 
 ## @smithy/util-utf8 undefined
 License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-utf8
-
-## @smithy/util-waiter undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/util-waiter
-
-## @smithy/uuid undefined
-License: Apache-2.0
-https://github.com/smithy-lang/smithy-typescript/tree/main/packages/uuid
+https://github.com/awslabs/smithy-typescript/tree/main/packages/util-utf8
 
 ## @lightweight-clients/shikimori-graphql-api-lightweight-client undefined
 License: MIT
