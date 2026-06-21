@@ -21,7 +21,7 @@
     "cdk:diff": "pnpm -r --filter infra cdk:diff",
     "cdk:deploy": "pnpm -r --filter infra cdk:deploy",
     "all-commited": "git diff --exit-code && git diff --cached --exit-code",
-    "prerelease": "pnpm run -w textgen && npm-run-all2 --parallel typecheck lint test:ci knip licenses:generate && pnpm run -w all-commited && echo 'All checks passed!'"
+    "prerelease": "pnpm run -w textgen && npm-run-all2 --parallel typecheck lint test:ci knip && pnpm run -w all-commited && echo 'All checks passed!'"
   },
   "type": "module",
   "license": "BSD-3-Clause",
