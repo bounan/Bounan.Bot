@@ -20,7 +20,7 @@ jobs:
     name: Deploy
     environment: production
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 3
     needs: prerelease-checks
     if: ${{ needs.prerelease-checks.outputs.code-changed == 'true' }}
 
