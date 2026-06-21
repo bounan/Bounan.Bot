@@ -1,6 +1,7 @@
 ﻿import type { Message } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 import { sendMessage, sendPhoto } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
+import { getJikanAnimePoster } from '../../../../api-clients/cached-jikan-client';
 import { getShikiAnimeInfo } from '../../../../api-clients/cached-shikimori-client';
 import { assert } from '../../../../shared/helpers/assert';
 import { Texts } from '../../../../shared/telegram/texts';
@@ -42,9 +43,14 @@ const handler: MessageHandler = async (message) => {
     .filter(Boolean)
     .join('\n');
 
+  const poster = anime.poster?.originalUrl ?? await getJikanAnimePoster(commandDto.myAnimeListId);
+  if (!poster) {
+    throw new Error('Anime poster not found');
+  }
+
   const result = await sendPhoto({
     chat_id: message.chat.id,
-    photo: anime.poster!.originalUrl,
+    photo: poster,
     caption: caption,
     parse_mode: 'HTML',
     reply_markup: {

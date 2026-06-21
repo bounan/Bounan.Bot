@@ -12,6 +12,7 @@
     "@aws-sdk/client-lambda": "catalog:",
     "@aws-sdk/client-ssm": "catalog:",
     "@aws-sdk/lib-dynamodb": "catalog:",
+    "@lightweight-clients/jikan-api-lightweight-client": "catalog:",
     "@lightweight-clients/shikimori-graphql-api-lightweight-client": "catalog:",
     "@lightweight-clients/telegram-bot-api-lightweight-client": "catalog:"
   },
