@@ -1,0 +1,80 @@
+name: Shared Prerelease Checks
+
+on:
+  workflow_call:
+    inputs:
+      force:
+        description: Run checks even when no build inputs changed
+        type: boolean
+        default: false
+    outputs:
+      code-changed:
+        description: Whether build, runtime, or test inputs changed
+        value: ${{ jobs.changes.outputs.code }}
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  changes:
+    name: Detect Build Changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      code: ${{ inputs.force || steps.filter.outputs.code == 'true' }}
+
+    steps:
+      - name: Check out repository for push comparison
+        if: ${{ !inputs.force && github.event_name != 'pull_request' }}
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Detect build input changes
+        if: ${{ !inputs.force }}
+        id: filter
+        uses: dorny/paths-filter@fbd0ab8f3e69293af611ebaee6363fc25e6d187d # v4.0.1
+        with:
+          base: ${{ github.ref }}
+          filters: |
+            code:
+              - 'packages/**'
+              - 'third-party/common'
+              - '.gitmodules'
+              - 'scripts/**'
+              - '**/package.json'
+              - 'pnpm-lock.yaml'
+              - 'pnpm-workspace.yaml'
+              - '**/tsconfig*.json'
+              - 'eslint.config.*'
+              - 'vitest.config.*'
+              - 'knip.json'
+
+  prerelease-checks:
+    name: Prerelease Checks
+    needs: changes
+    if: ${{ needs.changes.outputs.code == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      dynamodb-local:
+        image: amazon/dynamodb-local:latest@sha256:d89f8fcc6b1a39cb35976c248ed42a28c66ae00dc043099210f5571e42648ab4
+        ports:
+          - 8001:8000
+
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          submodules: 'true'
+
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Perform prerelease checks
+        run: pnpm run prerelease

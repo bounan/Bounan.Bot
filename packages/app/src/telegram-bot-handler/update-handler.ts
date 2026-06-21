@@ -9,6 +9,7 @@
 import { answerCallbackQuery, answerInlineQuery } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { UserStatus } from '../shared/database/entities/user-status';
+import { logger } from '../shared/logger';
 import { getUserStatus, registerNewUserIfNotExists } from './repository';
 
 type CanHandleUpdate<TUpdateField> = (updateField: TUpdateField) => boolean;
@@ -56,12 +57,12 @@ const tryHandleUpdate = async <TUpdateField, TResult>(
 }
 
 export const handleUpdate = async (update: Update, settings: BotSettings): Promise<void> => {
-  console.log('Processing update: ', update);
+  logger.info('Processing update', update);
 
   if (update.message) {
     const userStatus = await ensureUserExistsAndGetStatus(update.message.from?.id);
     if (userStatus === UserStatus.SUSPENDED) {
-      console.warn('User is suspended');
+      logger.warn('User is suspended');
       return;
     }
 
@@ -69,7 +70,7 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
   } else if (update.callback_query) {
     const userStatus = await ensureUserExistsAndGetStatus(update.callback_query.from.id);
     if (userStatus === UserStatus.SUSPENDED) {
-      console.warn('User is suspended');
+      logger.warn('User is suspended');
       return;
     }
 
@@ -77,19 +78,19 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
       update.callback_query,
       settings.onCallbackQuery,
       settings.onCallbackQueryDefault);
-    console.log('Callback query processed', JSON.stringify(result));
+    logger.info('Callback query processed', result);
 
     if (result) {
       const response = await answerCallbackQuery({
         ...result,
         callback_query_id: update.callback_query.id,
       });
-      console.log('Answered callback query', JSON.stringify(response));
+      logger.info('Answered callback query', response);
     }
   } else if (update.inline_query) {
     const userStatus = await ensureUserExistsAndGetStatus(update.inline_query.from.id);
     if (userStatus === UserStatus.SUSPENDED) {
-      console.warn('User is suspended');
+      logger.warn('User is suspended');
       return;
     }
 
@@ -97,16 +98,16 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
       update.inline_query,
       settings.onInlineQuery,
       settings.onInlineQueryDefault);
-    console.log('Inline query processed', results);
+    logger.info('Inline query processed', results);
 
     if (results) {
       const response = await answerInlineQuery({
         inline_query_id: update.inline_query.id,
         results,
       });
-      console.log('Answered inline query', response);
+      logger.info('Answered inline query', response);
     }
   }
 
-  console.log('Update processed');
+  logger.info('Update processed');
 }

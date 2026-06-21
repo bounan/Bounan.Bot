@@ -2,6 +2,11 @@ packages:
   - packages/*
   - third-party/common/ts
 
+allowBuilds:
+  msw: true
+
+blockExoticSubdeps: true
+
 catalog:
   '@aws-sdk/client-dynamodb': 3.1067.0
   '@aws-sdk/client-lambda': 3.1067.0
@@ -29,8 +34,16 @@ catalog:
   typescript-eslint: 8.61.0
   vitest: 4.1.8
 
+# Delay newly published versions for one day to reduce supply-chain risk.
+minimumReleaseAge: 1440
+
+# Use hoisted node linker for compatibility with LlrtFunction construct. This construct bundles
+# dependencies using docker, which does not work with host's symlinks.
 nodeLinker: hoisted
 
 onlyBuiltDependencies:
   - aws-sdk
   - esbuild
+  - msw
+
+trustPolicy: no-downgrade

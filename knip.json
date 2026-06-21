@@ -5,7 +5,10 @@
   ],
   "workspaces": {
     "packages/app": {
-      "entry": "src/handlers/*/handler.ts",
+      "entry": [
+        "src/handlers/*/handler.ts",
+        "src/**/*.spec.ts"
+      ],
       "ignoreDependencies": [
         "@aws-sdk/client-ssm",
         "@aws-sdk/client-lambda"
@@ -13,6 +16,9 @@
     },
     "packages/infra": {
       "entry": "src/app.ts"
+    },
+    "packages/integration-tests": {
+      "entry": "tests/**/*.test.ts"
     }
   }
 }

@@ -9,6 +9,7 @@ import type { VideoDownloadedNotification } from '../../../../../third-party/com
 import { getShikiAnimeInfo } from '../../api-clients/cached-shikimori-client';
 import { getEpisodes } from '../../api-clients/loan-api-client';
 import { config } from '../../config/config';
+import { logger } from '../../shared/logger';
 import { getKeyboard } from '../../shared/telegram/get-keyboard';
 import { getVideoDescription } from '../../shared/telegram/get-video-description';
 import { Texts } from '../../shared/telegram/texts';
@@ -33,7 +34,7 @@ const sendVideoMessages = async (
 
     const result = await copyMessage(messageToSend);
     if (!result.ok) {
-      console.error('Error copying message: ', JSON.stringify(result));
+      logger.error('Error copying message', result);
     }
 
     await new Promise(resolve => setTimeout(resolve, 100)); // to avoid rate limits
@@ -41,7 +42,7 @@ const sendVideoMessages = async (
 }
 
 const sendErrorMessages = async (caption: string, keyboard: InlineKeyboardMarkup, chatIds: Set<number>): Promise<void> => {
-  console.log('Sending error messages');
+  logger.info('Sending error messages');
 
   for (const chatId of chatIds) {
     const messageToSend: SendMessageData = {
@@ -53,7 +54,7 @@ const sendErrorMessages = async (caption: string, keyboard: InlineKeyboardMarkup
 
     const result = await sendMessage(messageToSend);
     if (!result.ok) {
-      console.error('Error sending error message: ', JSON.stringify(result));
+      logger.error('Error sending error message', result);
     }
 
     await new Promise(resolve => setTimeout(resolve, 100)); // to avoid rate limits
@@ -67,13 +68,13 @@ const notifySubscribers = async (
 
   const animeSubscriptions = await getSubscriptions(videoDownloadedNotification.videoKey);
   if (!animeSubscriptions) {
-    console.log('No subscriptions found for this video');
+    logger.info('No subscriptions found for this video');
     return;
   }
 
   const oneTimeSubscribers = animeSubscriptions.oneTimeSubscribers?.[episode];
   if (!oneTimeSubscribers || !oneTimeSubscribers.size) {
-    console.log('No subscribers for this video');
+    logger.info('No subscribers for this video');
     return;
   }
 
@@ -107,7 +108,7 @@ const registerInLibraryTable = async (videoDownloadedNotification: VideoDownload
 }
 
 export const process = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
-  console.log('Processing videos: ', JSON.stringify(videoDownloadedNotification));
+  logger.info('Processing videos', videoDownloadedNotification);
 
   if (videoDownloadedNotification.messageId) {
     await Promise.all([
@@ -118,5 +119,5 @@ export const process = async (videoDownloadedNotification: VideoDownloadedNotifi
     await notifySubscribers(videoDownloadedNotification);
   }
 
-  console.log('Animes processed');
+  logger.info('Animes processed');
 }

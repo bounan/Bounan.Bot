@@ -1,0 +1,12 @@
+{
+  "name": "integration-tests",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "catalog:",
+    "@aws-sdk/lib-dynamodb": "catalog:",
+    "typescript": "catalog:"
+  }
+}

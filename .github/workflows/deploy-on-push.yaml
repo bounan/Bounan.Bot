@@ -1,4 +1,4 @@
-﻿name: CI
+name: Master Checks (and Deploy)
 
 on:
   workflow_dispatch:
@@ -7,37 +7,22 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
-  code-quality:
-    name: Code Quality Checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 2
-
-    steps:
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          submodules: 'true'
-
-      - uses: pnpm/action-setup@v4
-
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version: 24
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Perform prerelease checks
-        run: pnpm run prerelease
+  prerelease-checks:
+    name: Prerelease Checks
+    uses: ./.github/workflows/shared-prerelease-checks.yml
+    with:
+      force: ${{ github.event_name == 'workflow_dispatch' }}
 
   deploy:
     name: Deploy
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 2
-    needs: code-quality
+    needs: prerelease-checks
+    if: ${{ needs.prerelease-checks.outputs.code-changed == 'true' }}
 
     permissions:
       id-token: write
@@ -56,7 +41,7 @@ jobs:
           tag_prefix: ""
           default_bump: patch
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
 
       - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
@@ -66,7 +51,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --filter infra...
 
-      - name: Install dependencies
+      - name: Generate Telegram texts
         run: pnpm run textgen
 
       - name: Configure AWS credentials (OIDC)

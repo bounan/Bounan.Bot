@@ -12,6 +12,7 @@ import { getDubs, getEpisodes } from '../../../../api-clients/loan-api-client';
 import { config } from '../../../../config/config';
 import { assert } from '../../../../shared/helpers/assert';
 import { dubToKey } from '../../../../shared/helpers/dub-to-key';
+import { logger } from '../../../../shared/logger';
 import { getKeyboard } from '../../../../shared/telegram/get-keyboard';
 import { getVideoDescription } from '../../../../shared/telegram/get-video-description';
 import { Texts } from '../../../../shared/telegram/texts';
@@ -20,7 +21,7 @@ import { WatchCommandDto } from '../../command-dtos';
 import type { MessageHandler } from '../query-handler';
 
 const sendSwitchDubButtons = async (chatId: number, myAnimeListId: number, dubNames: string[], episode: number) => {
-  console.log('Episode not found in dub. Other dubs: ', dubNames);
+  logger.info('Episode not found in dub; other dubs', dubNames);
 
   await sendMessage({
     chat_id: chatId,
@@ -52,7 +53,7 @@ const sendVideo = async (
     parse_mode: 'HTML',
   };
 
-  console.log('Sending video: ', JSON.stringify(args));
+  logger.info('Sending video', args);
   await copyMessage(args);
 }
 
@@ -66,14 +67,14 @@ const sendVideoResult = async (
   }
 
   const videoInfo = await getVideoInfo(videoKey);
-  console.log('Anime info: ', JSON.stringify(videoInfo));
+  logger.info('Anime info', videoInfo);
 
   const keyboard = getKeyboard(videoKey, episodesInDub, videoInfo?.publishingDetails);
 
   switch (videoInfo?.status) {
     case 'Pending':
     case 'Downloading':
-      console.log('Video not downloaded');
+      logger.info('Video not downloaded');
       await Promise.all([
         await subscribeOneTime(videoKey, message.chat.id),
         await sendMessage({
@@ -86,7 +87,7 @@ const sendVideoResult = async (
 
     case 'Failed':
     case 'NotAvailable':
-      console.log('Video failed to download');
+      logger.info('Video failed to download');
       await sendMessage({
         chat_id: message.chat.id,
         text: Texts.ErrorOnEpisode,
@@ -95,12 +96,12 @@ const sendVideoResult = async (
       break;
 
     case 'Downloaded':
-      console.log('Sending video');
+      logger.info('Sending video');
       await sendVideo(message, videoKey, videoInfo, keyboard);
       break;
 
     case null:
-      console.error('Lambda returned null');
+      logger.error('Lambda returned null');
       await sendMessage({
         chat_id: message.chat.id,
         text: Texts.UnknownError,
@@ -119,19 +120,19 @@ const handler: MessageHandler = async (message) => {
   assert(!!message.text);
   assert(!!message.chat?.id);
 
-  console.log('Received watch command');
+  logger.info('Received watch command');
 
   const commandDto = WatchCommandDto.fromPayload(message.text!) as WatchCommandDto;
-  console.log('Parsed command: ', commandDto);
+  logger.info('Parsed command', commandDto);
   if (!commandDto) {
-    console.warn('Failed to deserialize command', message.text);
+    logger.warn('Failed to deserialize command', message.text);
     return;
   }
 
   const allDubs = await getDubs(commandDto.myAnimeListId);
   const matchingDub = allDubs.find(dub => dubToKey(dub.name) === dubToKey(commandDto.dub));
   if (!matchingDub) {
-    console.log('No matching dub found');
+    logger.info('No matching dub found');
     await sendMessage({
       chat_id: message.chat.id,
       text: Texts.Search__NoResultsInLoan,
@@ -143,7 +144,7 @@ const handler: MessageHandler = async (message) => {
 
   const allEpisodes = await getEpisodes(videoKey.myAnimeListId, videoKey.dub);
   if (!allEpisodes || allEpisodes.length === 0) {
-    console.log('Episode not found in dub', videoKey);
+    logger.info('Episode not found in dub', videoKey);
     const otherDubs = allDubs
       .map(dub => dub.name)
       .filter(dubName => dubName !== videoKey.dub);
@@ -153,7 +154,7 @@ const handler: MessageHandler = async (message) => {
 
   await sendVideoResult(message, videoKey, allEpisodes);
 
-  console.log('Watch command handled');
+  logger.info('Watch command handled');
 }
 
 export const watchMessageHandler = {

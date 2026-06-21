@@ -4,6 +4,7 @@ import type { APIGatewayEvent, APIGatewayProxyResultV2 } from 'aws-lambda';
 
 import { config, initConfig } from '../../config/config';
 import { retry } from '../../shared/helpers/retry';
+import { logger } from '../../shared/logger';
 import { Texts } from '../../shared/telegram/texts';
 import type { BotSettings } from '../../telegram-bot-handler/update-handler';
 import { handleUpdate } from '../../telegram-bot-handler/update-handler';
@@ -38,7 +39,7 @@ const settings: BotSettings = {
     watchCallbackQueryHandler,
   ],
   onCallbackQueryDefault: async (callbackQuery: CallbackQuery) => {
-    console.error('Received unknown callback query', callbackQuery);
+    logger.error('Received unknown callback query', callbackQuery);
     return {
       callback_query_id: callbackQuery.id,
       show_alert: true,
@@ -50,21 +51,21 @@ const settings: BotSettings = {
 const SUCCESS_RESPONSE = { statusCode: 202 };
 
 export const handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyResultV2> => {
-  console.log('Processing event: ', JSON.stringify(event));
+  logger.info('Processing event', event);
 
   await initConfig();
   client_setClientToken(config.value.telegram.token);
 
   try {
     if (!event.body) {
-      console.log('No body');
+      logger.info('No body');
       return SUCCESS_RESPONSE;
     }
 
     const update = JSON.parse(event.body);
     await retry(async () => await handleUpdate(update, settings), 3, () => true);
   } catch (error: unknown) {
-    console.error('Failed to process update', error);
+    logger.error('Failed to process update', error);
   }
 
   return SUCCESS_RESPONSE;

@@ -1,4 +1,5 @@
-﻿import type { CommandShortcut } from './command-shortcut';
+import { logger } from '../../../shared/logger';
+import type { CommandShortcut } from './command-shortcut';
 
 export abstract class CommandDto {
   protected abstract command: CommandShortcut;
@@ -8,8 +9,8 @@ export abstract class CommandDto {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return new (this as any)(...payload.split(' ').slice(1));
-    } catch (e) {
-      console.info(e);
+    } catch (error) {
+      logger.info('Failed to parse command payload', error);
       return null;
     }
   }

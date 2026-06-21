@@ -2,6 +2,7 @@
 import { sendMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { assert } from '../../../../shared/helpers/assert';
+import { logger } from '../../../../shared/logger';
 import { Texts } from '../../../../shared/telegram/texts';
 import type { MessageHandler } from '../query-handler';
 
@@ -11,7 +12,7 @@ const handler: MessageHandler = async (message) => {
   assert(!!message?.chat?.id);
   assert(!!message?.text);
 
-  console.log('Handling start message', message.text);
+  logger.info('Handling start message', message.text);
 
   const result = await sendMessage({
     chat_id: message.chat.id,

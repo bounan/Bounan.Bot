@@ -4,6 +4,7 @@ import { sendMessage, sendPhoto } from '@lightweight-clients/telegram-bot-api-li
 import { getJikanAnimePoster } from '../../../../api-clients/cached-jikan-client';
 import { getShikiAnimeInfo } from '../../../../api-clients/cached-shikimori-client';
 import { assert } from '../../../../shared/helpers/assert';
+import { logger } from '../../../../shared/logger';
 import { Texts } from '../../../../shared/telegram/texts';
 import { DubsCommandDto, InfoCommandDto, RelatedCommandDto } from '../../command-dtos';
 import type { MessageHandler } from '../query-handler';
@@ -14,19 +15,19 @@ const handler: MessageHandler = async (message) => {
   assert(!!message.text);
   assert(!!message.chat?.id);
 
-  console.log('Handling info message: ', message.text);
+  logger.info('Handling info message', message.text);
 
   const commandDto = InfoCommandDto.fromPayload(message.text!) as InfoCommandDto;
-  console.log('Parsed command: ', JSON.stringify(commandDto));
+  logger.info('Parsed command', commandDto);
   if (!commandDto) {
-    console.warn('Failed to deserialize command', message.text);
+    logger.warn('Failed to deserialize command', message.text);
     return;
   }
 
   const anime = await getShikiAnimeInfo(commandDto.myAnimeListId);
-  console.log('Anime info: ', JSON.stringify(anime));
+  logger.info('Anime info', anime);
   if (!anime) {
-    console.error('Anime not found');
+    logger.error('Anime not found');
     await sendMessage({
       chat_id: message.chat.id,
       text: Texts.Search__NoResultsInLoan,
@@ -70,7 +71,7 @@ const handler: MessageHandler = async (message) => {
   });
   assert(result.ok, () => JSON.stringify(result));
 
-  console.log('Info message sent');
+  logger.info('Info message sent');
 };
 
 export const infoMessageHandler = {

@@ -4,6 +4,7 @@ import * as cw from 'aws-cdk-lib/aws-cloudwatch';
 import * as cloudwatchActions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import { LoggingFormat } from 'aws-cdk-lib/aws-lambda';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subs from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -129,6 +130,7 @@ export class Stack extends cdk.Stack {
         entry: `../app/src/handlers/${handlerName}/handler.ts`,
         handler: 'handler',
         logGroup,
+        loggingFormat: LoggingFormat.JSON,
         timeout: cdk.Duration.seconds(30),
       });
 

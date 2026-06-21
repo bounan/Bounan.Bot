@@ -3,6 +3,7 @@
 import { searchAnime } from '../../../../api-clients/cached-shikimori-client';
 import { assert } from '../../../../shared/helpers/assert';
 import { eclipseText } from '../../../../shared/helpers/string-helpers';
+import { logger } from '../../../../shared/logger';
 import { Texts } from '../../../../shared/telegram/texts';
 import { InfoCommandDto } from '../../command-dtos';
 import type { MessageHandler } from '../query-handler';
@@ -14,15 +15,15 @@ const canHandle = (): boolean => {
 const handler: MessageHandler = async (message) => {
   assert(!!message?.chat?.id);
   if (!message?.text?.trim()) {
-    console.log('Empty search query. Message from group? Ignoring');
+    logger.info('Empty search query; ignoring possible group message');
     return;
   }
 
-  console.log('Handling search query: ', message.text);
+  logger.info('Handling search query', message.text);
 
   const searchResults = await searchAnime(message.text!);
   if (!searchResults || searchResults.length === 0) {
-    console.log('No search results');
+    logger.info('No search results');
     await sendMessage({
       chat_id: message.chat.id,
       text: Texts.Search__NoResultsInShiki,
@@ -30,7 +31,7 @@ const handler: MessageHandler = async (message) => {
     return;
   }
 
-  console.log(`Found ${searchResults.length} results`);
+  logger.info('Found search results', { count: searchResults.length });
 
   const buttons = searchResults.map((result) => {
     const title = result.russian || result.name;

@@ -2,19 +2,20 @@
 
 import { searchAnime } from '../../../../api-clients/cached-shikimori-client';
 import { getDubs } from '../../../../api-clients/loan-api-client';
+import { logger } from '../../../../shared/logger';
 import { InfoCommandDto } from '../../command-dtos';
 import { KnownInlineAnswers } from '../../constants/known-inline-answers';
 import type { InlineQueryHandler } from '../query-handler';
 
 const handler: InlineQueryHandler = async (inlineQuery) => {
-  console.log('Handling search inline query {Query}', inlineQuery.query);
+  logger.info('Handling search inline query', inlineQuery.query);
 
   if (!inlineQuery.query) {
     return [];
   }
 
   const shikimoriResults = await searchAnime(inlineQuery.query);
-  console.log('Got search results for {Query}: {Count}', inlineQuery.query, shikimoriResults.length);
+  logger.info('Got search results', { query: inlineQuery.query, count: shikimoriResults.length });
 
   const loanApiDubs = await Promise.all(shikimoriResults.map(async anime => ({
     anime,

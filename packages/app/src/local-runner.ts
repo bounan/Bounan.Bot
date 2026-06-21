@@ -8,14 +8,15 @@ import type { VideoDownloadedNotification } from '../../../third-party/common/ts
 import { config, initConfig } from './config/config';
 import { handler as onVideoDownloadedHandler } from './handlers/on-video-downloaded/handler';
 import { handler as onWebhookHandler } from './handlers/on-webhook/handler';
+import { logger } from './shared/logger';
 
 const onDownloaded = async (message: VideoDownloadedNotification) => {
-  console.log('Processing message: ', message);
+  logger.info('Processing message', message);
 
   // @ts-expect-error - we don't need to provide all the event properties
   await onVideoDownloadedHandler({ Records: [{ Sns: { Message: JSON.stringify(message) } }] });
 
-  console.log('Message processed');
+  logger.info('Message processed');
 }
 
 const onWebhook = async (message: Update) => {

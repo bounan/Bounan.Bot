@@ -5,6 +5,7 @@ import type { AnimeKey } from '../shared/database/entities/anime-key';
 import type { SubscriptionEntity } from '../shared/database/entities/subscription-entity';
 import type { VideoKey } from '../shared/database/entities/video-key';
 import { docClient } from '../shared/database/repository';
+import { logger } from '../shared/logger';
 
 const getAnimeKey = (animeKey: AnimeKey): string => {
   return `${animeKey.myAnimeListId}#${animeKey.dub}`;
@@ -20,7 +21,7 @@ export const getSubscriptions = async (animeKey: AnimeKey): Promise<GetSubscript
   });
 
   const result = await docClient.send(command);
-  console.log('Subscriptions: ' + JSON.stringify(result.Item));
+  logger.info('Subscriptions', result.Item);
 
   return result.Item as GetSubscriptionsResult;
 }
@@ -29,12 +30,12 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
   const existingSubscriptions = await getSubscriptions(videoKey);
 
   if (existingSubscriptions?.oneTimeSubscribers?.[videoKey.episode]?.has(chatId)) {
-    console.log('User already subscribed to one-time notifications for this episode');
+    logger.info('User already subscribed to one-time notifications for this episode');
     return;
   }
 
   if (!existingSubscriptions || !existingSubscriptions.oneTimeSubscribers) {
-    console.log('Creating one-time subscribers map');
+    logger.info('Creating one-time subscribers map');
     const command = new UpdateCommand({
       TableName: config.value.database.subscriptionsTableName,
       Key: { animeKey: getAnimeKey(videoKey) },
@@ -46,7 +47,7 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
     });
 
     const result = await docClient.send(command);
-    console.log('Created one-time subscribers map: ' + JSON.stringify(result));
+    logger.info('Created one-time subscribers map', result);
   }
 
   const command = new UpdateCommand({
@@ -63,7 +64,7 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
   });
 
   const result = await docClient.send(command);
-  console.log('Subscribed one-time: ' + JSON.stringify(result));
+  logger.info('Subscribed one-time', result);
 }
 
 export const removeOneTimeSubscribers = async (videoKey: VideoKey): Promise<void> => {
@@ -81,5 +82,5 @@ export const removeOneTimeSubscribers = async (videoKey: VideoKey): Promise<void
   });
 
   const result = await docClient.send(command);
-  console.log('Removed one-time subscribers: ' + JSON.stringify(result));
+  logger.info('Removed one-time subscribers', result);
 }

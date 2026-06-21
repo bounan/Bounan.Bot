@@ -4,6 +4,7 @@ import { config } from '../config/config';
 import type { UserEntity } from '../shared/database/entities/user-entity';
 import { UserStatus } from '../shared/database/entities/user-status';
 import { docClient } from '../shared/database/repository';
+import { logger } from '../shared/logger';
 
 export const registerNewUserIfNotExists = async (userId: number): Promise<void> => {
   const command = new PutCommand({
@@ -32,7 +33,7 @@ export const registerNewUserIfNotExists = async (userId: number): Promise<void> 
     }
   }
 
-  console.log(`Register user result: ${result}`);
+  logger.info('Register user result', result);
 }
 
 export const getUserStatus = async (userId: number): Promise<UserStatus> => {

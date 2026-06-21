@@ -42,4 +42,10 @@ export default [
       '@typescript-eslint/consistent-type-imports': 'off',
     },
   },
+  {
+    files: ['scripts/**/*.mjs'],
+    languageOptions: {
+      parserOptions: { project: false },
+    },
+  },
 ];

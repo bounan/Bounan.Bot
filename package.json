@@ -7,18 +7,21 @@
     "lint-fix": "eslint . --fix",
     "knip": "knip",
     "test": "vitest run --coverage",
+    "test:ci": "vitest run --coverage.enabled=false",
     "test:watch": "vitest --watch",
-    "test:ui": "vitest --ui --project unit-tests",
+    "test:ui": "vitest --ui --project app",
+    "test:app": "vitest run --coverage --project app",
+    "test:integration": "vitest run packages/integration-tests/tests --coverage.enabled=false",
     "dependencies:check": "pnpm outdated --recursive --use-stderr",
     "dependencies:update": "pnpm update --recursive --latest",
     "licenses:scan": "pnpm licenses list --prod --json > thirdparty.json",
-    "licenses:generate": "pnpm run -w licenses:scan && jiti scripts/format-thirdparty.ts",
+    "licenses:generate": "pnpm run -w licenses:scan && node scripts/format-thirdparty.mjs",
     "textgen": "pnpm -r --filter app textgen",
     "cdk:synth": "pnpm -r --filter infra cdk:synth",
     "cdk:diff": "pnpm -r --filter infra cdk:diff",
     "cdk:deploy": "pnpm -r --filter infra cdk:deploy",
     "all-commited": "git diff --exit-code && git diff --cached --exit-code",
-    "prerelease": "pnpm run -w textgen && npm-run-all2 --parallel typecheck lint knip licenses:generate && pnpm run -w all-commited && echo 'All checks passed!'"
+    "prerelease": "pnpm run -w textgen && npm-run-all2 --parallel typecheck lint test:ci knip licenses:generate && pnpm run -w all-commited && echo 'All checks passed!'"
   },
   "type": "module",
   "license": "BSD-3-Clause",
@@ -32,7 +35,7 @@
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm"
   },
-  "packageManager": "pnpm@11.6.0",
+  "packageManager": "pnpm@11.8.0",
   "devDependencies": {
     "@eslint/js": "catalog:",
     "@vitest/coverage-v8": "catalog:",

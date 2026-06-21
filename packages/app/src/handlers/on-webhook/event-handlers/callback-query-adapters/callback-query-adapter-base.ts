@@ -1,6 +1,7 @@
 ﻿import type { AnswerCallbackQueryData, CallbackQuery } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { assert } from '../../../../shared/helpers/assert';
+import { logger } from '../../../../shared/logger';
 import type { MessageHandler } from '../query-handler';
 
 export const processCallbackQuery = async (
@@ -12,7 +13,7 @@ export const processCallbackQuery = async (
   assert(!!callbackQuery?.message?.chat);
   assert(!!callbackQuery?.message?.message_id);
 
-  console.log('Handling info callback query');
+  logger.info('Handling callback query');
 
   await handler({
     chat: callbackQuery.message!.chat,

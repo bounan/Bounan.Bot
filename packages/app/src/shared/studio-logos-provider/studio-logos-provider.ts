@@ -1,4 +1,5 @@
 import { config } from '../../config/config';
+import { logger } from '../logger';
 import { studioLogosList } from './studio-logos-list';
 
 const subsTokens = [
@@ -21,12 +22,12 @@ export const getStudioLogoUrl = (studioName: string): string | undefined => {
   let imageKey = studioLogosList.find(item => item.toLowerCase() === expectedImageKey);
 
   if (!imageKey && isSubs) {
-    console.warn('Failed to find logo for {StudioName}. Using default icon for subs', studioName);
+    logger.warn('Failed to find logo; using default icon for subs', { studioName });
     imageKey = '!Subs';
   }
 
   if (!imageKey) {
-    console.warn('Failed to find logo for {StudioName}', studioName);
+    logger.warn('Failed to find logo', { studioName });
     return undefined;
   }
 

@@ -2,6 +2,7 @@
 import { deleteMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { assert } from '../../../../shared/helpers/assert';
+import { logger } from '../../../../shared/logger';
 import { KnownInlineAnswers } from '../../constants/known-inline-answers';
 import type { MessageHandler } from '../query-handler';
 
@@ -12,7 +13,7 @@ const handler: MessageHandler = async (message) => {
   assert(!!message?.chat?.id);
   assert(!!message?.text);
 
-  console.log('Handling known inline answer: ', message.text);
+  logger.info('Handling known inline answer', message.text);
 
   const result = await deleteMessage({
     chat_id: message.chat.id,

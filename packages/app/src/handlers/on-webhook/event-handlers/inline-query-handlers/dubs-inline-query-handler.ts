@@ -2,6 +2,7 @@
 
 import { getDubs } from '../../../../api-clients/loan-api-client';
 import { dubToKey } from '../../../../shared/helpers/dub-to-key';
+import { logger } from '../../../../shared/logger';
 import { getStudioLogoUrl } from '../../../../shared/studio-logos-provider/studio-logos-provider';
 import { Texts } from '../../../../shared/telegram/texts';
 import { getRegisteredDubs } from '../../../library-repository';
@@ -27,18 +28,18 @@ const getDescription = (
 const canHandle = (inlineQuery: InlineQuery): boolean => inlineQuery.query?.startsWith(DubsCommandDto.Command) ?? false;
 
 const handler: InlineQueryHandler = async (inlineQuery) => {
-  console.log('Handling dubs inline query {Query}', inlineQuery.query);
+  logger.info('Handling dubs inline query', inlineQuery.query);
 
   const commandDto = DubsCommandDto.fromPayload(inlineQuery.query) as DubsCommandDto;
   if (!commandDto) {
-    console.warn('Failed to deserialize command', inlineQuery.query);
+    logger.warn('Failed to deserialize command', inlineQuery.query);
     return [];
   }
 
   const registeredDubsTask = getRegisteredDubs(commandDto.myAnimeListId);
 
   const uniqueDubs = await getDubs(commandDto.myAnimeListId);
-  console.log('Got dubs for {MyAnimeListId}: {Dubs}', commandDto.myAnimeListId, uniqueDubs);
+  logger.info('Got dubs', { myAnimeListId: commandDto.myAnimeListId, dubs: uniqueDubs });
   if (uniqueDubs.length === 0) {
     return [{
       type: 'article',
@@ -75,7 +76,7 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
     },
   }));
 
-  console.log('Returning {Count} dubs for {MyAnimeListId}', results.length, commandDto.myAnimeListId);
+  logger.info('Returning dubs', { count: results.length, myAnimeListId: commandDto.myAnimeListId });
   return results;
 }
 
