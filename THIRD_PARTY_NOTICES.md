@@ -23,87 +23,87 @@ https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/supports-w
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/util
 
-## @aws-sdk/client-dynamodb 3.1067.0
+## @aws-sdk/client-dynamodb 3.1072.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-dynamodb
 
-## @aws-sdk/client-lambda 3.1067.0
+## @aws-sdk/client-lambda 3.1072.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-lambda
 
-## @aws-sdk/client-ssm 3.1067.0
+## @aws-sdk/client-ssm 3.1072.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-ssm
 
-## @aws-sdk/core 3.974.20
+## @aws-sdk/core 3.974.22
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/core
 
-## @aws-sdk/credential-provider-env 3.972.46
+## @aws-sdk/credential-provider-env 3.972.48
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-env
 
-## @aws-sdk/credential-provider-http 3.972.48
+## @aws-sdk/credential-provider-http 3.972.50
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-http
 
-## @aws-sdk/credential-provider-ini 3.972.53
+## @aws-sdk/credential-provider-ini 3.972.55
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-ini
 
-## @aws-sdk/credential-provider-login 3.972.52
+## @aws-sdk/credential-provider-login 3.972.54
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-login
 
-## @aws-sdk/credential-provider-node 3.972.55
+## @aws-sdk/credential-provider-node 3.972.57
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-node
 
-## @aws-sdk/credential-provider-process 3.972.46
+## @aws-sdk/credential-provider-process 3.972.48
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-process
 
-## @aws-sdk/credential-provider-sso 3.972.52
+## @aws-sdk/credential-provider-sso 3.972.54
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-sso
 
-## @aws-sdk/credential-provider-web-identity 3.972.52
+## @aws-sdk/credential-provider-web-identity 3.972.54
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-web-identity
 
-## @aws-sdk/dynamodb-codec 3.973.20
+## @aws-sdk/dynamodb-codec 3.973.22
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/dynamodb-codec
 
-## @aws-sdk/endpoint-cache 3.972.7
+## @aws-sdk/endpoint-cache 3.972.8
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/endpoint-cache
 
-## @aws-sdk/lib-dynamodb 3.1067.0
+## @aws-sdk/lib-dynamodb 3.1072.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 
-## @aws-sdk/middleware-endpoint-discovery 3.972.18
+## @aws-sdk/middleware-endpoint-discovery 3.972.19
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-endpoint-discovery
 
-## @aws-sdk/nested-clients 3.997.20
+## @aws-sdk/nested-clients 3.997.22
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients
 
-## @aws-sdk/signature-v4-multi-region 3.996.34
+## @aws-sdk/signature-v4-multi-region 3.996.35
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/signature-v4-multi-region
 
-## @aws-sdk/token-providers 3.1066.0
+## @aws-sdk/token-providers 3.1071.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
 
-## @aws-sdk/types 3.973.12
+## @aws-sdk/types 3.973.12, 3.973.13
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
 
-## @aws-sdk/util-dynamodb 3.996.4
+## @aws-sdk/util-dynamodb 3.996.5
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 
@@ -111,7 +111,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-locate-window
 
-## @aws-sdk/xml-builder 3.972.29
+## @aws-sdk/xml-builder 3.972.30
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/xml-builder
 
