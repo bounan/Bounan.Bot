@@ -3,6 +3,7 @@ packages:
   - third-party/common/ts
 
 allowBuilds:
+  esbuild: true
   msw: true
 
 blockExoticSubdeps: true
