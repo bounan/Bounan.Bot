@@ -107,7 +107,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 
-## @aws-sdk/util-locate-window 3.965.5
+## @aws-sdk/util-locate-window 3.965.8
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-locate-window
 
@@ -131,15 +131,15 @@ https://github.com/lightweight-clients/shikimori-graphql-api-lightweight-client
 License: MIT
 https://github.com/lightweight-clients/telegram-bot-api-lightweight-client
 
-## @smithy/core 3.24.6
+## @smithy/core 3.26.0
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/core
 
-## @smithy/credential-provider-imds 4.3.8
+## @smithy/credential-provider-imds 4.4.2
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/credential-provider-imds
 
-## @smithy/fetch-http-handler 5.4.6
+## @smithy/fetch-http-handler 5.5.2
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/fetch-http-handler
 
@@ -147,15 +147,15 @@ https://github.com/smithy-lang/smithy-typescript/tree/main/packages/fetch-http-h
 License: Apache-2.0
 https://github.com/awslabs/smithy-typescript/tree/main/packages/is-array-buffer
 
-## @smithy/node-http-handler 4.7.7
+## @smithy/node-http-handler 4.8.2
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/node-http-handler
 
-## @smithy/signature-v4 5.4.6
+## @smithy/signature-v4 5.5.2
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/signature-v4
 
-## @smithy/types 4.14.3
+## @smithy/types 4.15.0
 License: Apache-2.0
 https://github.com/smithy-lang/smithy-typescript/tree/main/packages/types
 
