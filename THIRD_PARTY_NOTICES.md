@@ -23,55 +23,55 @@ https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/supports-w
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-crypto-helpers/tree/master/packages/util
 
-## @aws-sdk/client-dynamodb 3.1072.0
+## @aws-sdk/client-dynamodb 3.1075.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-dynamodb
 
-## @aws-sdk/client-lambda 3.1072.0
+## @aws-sdk/client-lambda 3.1075.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-lambda
 
-## @aws-sdk/client-ssm 3.1072.0
+## @aws-sdk/client-ssm 3.1075.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/clients/client-ssm
 
-## @aws-sdk/core 3.974.22
+## @aws-sdk/core 3.974.23
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/core
 
-## @aws-sdk/credential-provider-env 3.972.48
+## @aws-sdk/credential-provider-env 3.972.49
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-env
 
-## @aws-sdk/credential-provider-http 3.972.50
+## @aws-sdk/credential-provider-http 3.972.51
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-http
 
-## @aws-sdk/credential-provider-ini 3.972.55
+## @aws-sdk/credential-provider-ini 3.972.56
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-ini
 
-## @aws-sdk/credential-provider-login 3.972.54
+## @aws-sdk/credential-provider-login 3.972.55
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-login
 
-## @aws-sdk/credential-provider-node 3.972.57
+## @aws-sdk/credential-provider-node 3.972.58
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-node
 
-## @aws-sdk/credential-provider-process 3.972.48
+## @aws-sdk/credential-provider-process 3.972.49
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-process
 
-## @aws-sdk/credential-provider-sso 3.972.54
+## @aws-sdk/credential-provider-sso 3.972.55
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-sso
 
-## @aws-sdk/credential-provider-web-identity 3.972.54
+## @aws-sdk/credential-provider-web-identity 3.972.55
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/credential-provider-web-identity
 
-## @aws-sdk/dynamodb-codec 3.973.22
+## @aws-sdk/dynamodb-codec 3.973.23
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/dynamodb-codec
 
@@ -79,7 +79,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/dynamodb-codec
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/endpoint-cache
 
-## @aws-sdk/lib-dynamodb 3.1072.0
+## @aws-sdk/lib-dynamodb 3.1075.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 
@@ -87,7 +87,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/lib/lib-dynamodb
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/middleware-endpoint-discovery
 
-## @aws-sdk/nested-clients 3.997.22
+## @aws-sdk/nested-clients 3.997.23
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients
 
@@ -95,11 +95,11 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/nested-clients
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/signature-v4-multi-region
 
-## @aws-sdk/token-providers 3.1071.0
+## @aws-sdk/token-providers 3.1074.0
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages/token-providers
 
-## @aws-sdk/types 3.973.12, 3.973.13
+## @aws-sdk/types 3.973.13
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/types
 
@@ -111,7 +111,7 @@ https://github.com/aws/aws-sdk-js-v3/tree/main/packages/util-dynamodb
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/util-locate-window
 
-## @aws-sdk/xml-builder 3.972.30
+## @aws-sdk/xml-builder 3.972.31
 License: Apache-2.0
 https://github.com/aws/aws-sdk-js-v3/tree/main/packages-internal/xml-builder
 
@@ -130,10 +130,6 @@ https://github.com/lightweight-clients/shikimori-graphql-api-lightweight-client
 ## @lightweight-clients/telegram-bot-api-lightweight-client 10.0.0
 License: MIT
 https://github.com/lightweight-clients/telegram-bot-api-lightweight-client
-
-## @nodable/entities 2.1.0
-License: MIT
-https://github.com/nodable/val-parsers#readme
 
 ## @smithy/core 3.24.6
 License: Apache-2.0
@@ -175,14 +171,6 @@ https://github.com/awslabs/smithy-typescript/tree/main/packages/util-utf8
 License: MIT
 https://github.com/bowser-js/bowser
 
-## fast-xml-builder 1.1.7
-License: MIT
-https://github.com/NaturalIntelligence/fast-xml-builder#readme
-
-## fast-xml-parser 5.7.3
-License: MIT
-https://github.com/NaturalIntelligence/fast-xml-parser#readme
-
 ## mnemonist 0.38.3
 License: MIT
 https://github.com/yomguithereal/mnemonist#readme
@@ -190,14 +178,6 @@ https://github.com/yomguithereal/mnemonist#readme
 ## obliterator 1.6.1
 License: MIT
 https://github.com/yomguithereal/obliterator#readme
-
-## path-expression-matcher 1.5.0
-License: MIT
-https://github.com/NaturalIntelligence/path-expression-matcher#readme
-
-## strnum 2.2.3
-License: MIT
-https://github.com/NaturalIntelligence/strnum#readme
 
 ## tslib 2.8.1
 License: 0BSD
