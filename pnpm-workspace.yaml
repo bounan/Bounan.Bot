@@ -27,7 +27,7 @@ catalog:
   constructs: 10.7.1
   cross-env: 10.1.0
   eslint: 10.7.0
-  eslint-plugin-simple-import-sort: 13.0.0
+  eslint-plugin-simple-import-sort: 14.0.0
   jiti: 2.7.0
   knip: 6.29.0
   npm-run-all2: 9.0.2
