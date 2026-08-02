@@ -27,9 +27,9 @@ catalog:
   constructs: 10.7.1
   cross-env: 10.1.0
   jiti: 2.7.0
-  knip: 6.29.0
+  knip: 6.31.0
   npm-run-all2: 9.0.2
-  typescript: 6.0.3
+  typescript: 7.0.2
   vitest: 4.1.10
 
 # Delay newly published versions for one day to reduce supply-chain risk.
