@@ -14,9 +14,9 @@ export class WatchCommandDto extends CommandDto {
 
   constructor(myAnimeListId: number | string, dub: string, episode: number | string) {
     super();
-    this.myAnimeListId = typeof myAnimeListId === 'string' ? parseInt(myAnimeListId) : myAnimeListId;
+    this.myAnimeListId = typeof myAnimeListId === 'string' ? parseInt(myAnimeListId, 10) : myAnimeListId;
     this.dub = dub;
-    this.episode = typeof episode === 'string' ? parseInt(episode) : episode;
+    this.episode = typeof episode === 'string' ? parseInt(episode, 10) : episode;
     validateMyAnimeListId(this.myAnimeListId);
     validateDub(this.dub);
     validateEpisode(this.episode);

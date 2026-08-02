@@ -1,13 +1,13 @@
-﻿import type { Message } from '@lightweight-clients/telegram-bot-api-lightweight-client';
+import type { Message } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 import { deleteMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { assert } from '../../../../shared/helpers/assert';
 import { logger } from '../../../../shared/logger';
-import { KnownInlineAnswers } from '../../constants/known-inline-answers';
+import { type KnownInlineAnswer, KnownInlineAnswers } from '../../constants/known-inline-answers';
 import type { MessageHandler } from '../query-handler';
 
 const canHandle = (message: Message): boolean =>
-  Object.values(KnownInlineAnswers).includes(message.text as KnownInlineAnswers);
+  Object.values(KnownInlineAnswers).includes(message.text as KnownInlineAnswer);
 
 const handler: MessageHandler = async (message) => {
   assert(!!message?.chat?.id);

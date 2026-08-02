@@ -1,4 +1,4 @@
-﻿import type { Message } from '@lightweight-clients/telegram-bot-api-lightweight-client';
+import type { Message } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 import { sendMessage, sendPhoto } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { getJikanAnimePoster } from '../../../../api-clients/cached-jikan-client';
@@ -12,12 +12,13 @@ import type { MessageHandler } from '../query-handler';
 const canHandle = (message: Message): boolean => message.text?.startsWith(InfoCommandDto.Command) ?? false;
 
 const handler: MessageHandler = async (message) => {
-  assert(!!message.text);
-  assert(!!message.chat?.id);
+  if (!message.text || !message.chat?.id) {
+    throw new Error('Info message is missing text or chat ID');
+  }
 
   logger.info('Handling info message', message.text);
 
-  const commandDto = InfoCommandDto.fromPayload(message.text!) as InfoCommandDto;
+  const commandDto = InfoCommandDto.fromPayload(message.text) as InfoCommandDto;
   logger.info('Parsed command', commandDto);
   if (!commandDto) {
     logger.warn('Failed to deserialize command', message.text);

@@ -1,4 +1,4 @@
-﻿import type { AnswerCallbackQueryData, CallbackQuery } from '@lightweight-clients/telegram-bot-api-lightweight-client';
+import type { AnswerCallbackQueryData, CallbackQuery } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { assert } from '../../../../shared/helpers/assert';
 import { logger } from '../../../../shared/logger';
@@ -8,17 +8,18 @@ export const processCallbackQuery = async (
   callbackQuery: CallbackQuery,
   handler: MessageHandler,
 ): Promise<Omit<AnswerCallbackQueryData, 'callback_query_id'>> => {
-  assert(!!callbackQuery?.id);
-  assert(!!callbackQuery?.data);
-  assert(!!callbackQuery?.message?.chat);
-  assert(!!callbackQuery?.message?.message_id);
+  const message = callbackQuery.message;
+  assert(callbackQuery.id);
+  assert(callbackQuery.data);
+  assert(message?.chat);
+  assert(message?.message_id);
 
   logger.info('Handling callback query');
 
   await handler({
-    chat: callbackQuery.message!.chat,
+    chat: message.chat,
     text: callbackQuery.data,
-    message_id: callbackQuery.message!.message_id,
+    message_id: message.message_id,
   });
 
   return {};

@@ -51,7 +51,7 @@ const sendErrorMessages = async (
   for (const chatId of chatIds) {
     const messageToSend: SendMessageData = {
       chat_id: chatId,
-      text: Texts.ErrorOnEpisode + '\n' + caption,
+      text: `${Texts.ErrorOnEpisode}\n${caption}`,
       reply_markup: keyboard,
       parse_mode: 'HTML',
     };
@@ -75,7 +75,7 @@ const notifySubscribers = async (videoDownloadedNotification: VideoDownloadedNot
   }
 
   const oneTimeSubscribers = animeSubscriptions.oneTimeSubscribers?.[episode];
-  if (!oneTimeSubscribers || !oneTimeSubscribers.size) {
+  if (!oneTimeSubscribers?.size) {
     logger.info('No subscribers for this video');
     return;
   }
@@ -87,7 +87,7 @@ const notifySubscribers = async (videoDownloadedNotification: VideoDownloadedNot
     videoDownloadedNotification.videoKey,
     videoDownloadedNotification.scenes,
   );
-  const episodes = await getEpisodes(parseInt(animeInfo.id), dub);
+  const episodes = await getEpisodes(parseInt(animeInfo.id, 10), dub);
   const keyboard = getKeyboard(
     videoDownloadedNotification.videoKey,
     episodes,

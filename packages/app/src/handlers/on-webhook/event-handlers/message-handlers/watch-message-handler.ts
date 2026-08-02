@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   CopyMessageData,
   InlineKeyboardMarkup,
   Message,
@@ -10,7 +10,6 @@ import { getVideoInfo } from '../../../../api-clients/animan-client';
 import { getShikiAnimeInfo } from '../../../../api-clients/cached-shikimori-client';
 import { getDubs, getEpisodes } from '../../../../api-clients/loan-api-client';
 import { config } from '../../../../config/config';
-import { assert } from '../../../../shared/helpers/assert';
 import { dubToKey } from '../../../../shared/helpers/dub-to-key';
 import { logger } from '../../../../shared/logger';
 import { getKeyboard } from '../../../../shared/telegram/get-keyboard';
@@ -46,10 +45,14 @@ const sendVideo = async (
   const animeInfo = await getShikiAnimeInfo(videoKey.myAnimeListId);
   const videoDescription = getVideoDescription(animeInfo, videoKey, videoInfo.scenes);
 
+  if (!videoInfo.messageId) {
+    throw new Error('Downloaded video is missing a message ID');
+  }
+
   const args: CopyMessageData = {
     chat_id: message.chat.id,
     from_chat_id: config.value.telegram.videoChatId,
-    message_id: videoInfo.messageId!,
+    message_id: videoInfo.messageId,
     caption: videoDescription,
     reply_markup: keyboard,
     parse_mode: 'HTML',
@@ -119,12 +122,13 @@ const sendVideoResult = async (
 const canHandle = (message: Message): boolean => message.text?.startsWith(WatchCommandDto.Command) ?? false;
 
 const handler: MessageHandler = async (message) => {
-  assert(!!message.text);
-  assert(!!message.chat?.id);
+  if (!message.text || !message.chat?.id) {
+    throw new Error('Watch message is missing text or chat ID');
+  }
 
   logger.info('Received watch command');
 
-  const commandDto = WatchCommandDto.fromPayload(message.text!) as WatchCommandDto;
+  const commandDto = WatchCommandDto.fromPayload(message.text) as WatchCommandDto;
   logger.info('Parsed command', commandDto);
   if (!commandDto) {
     logger.warn('Failed to deserialize command', message.text);

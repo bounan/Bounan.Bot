@@ -7,7 +7,8 @@ export abstract class CommandDto {
 
   public static fromPayload(payload: string): CommandDto | null {
     try {
-      return new (CommandDto as any)(...payload.split(' ').slice(1));
+      const CommandDtoConstructor = CommandDto as unknown as new (...args: string[]) => CommandDto;
+      return new CommandDtoConstructor(...payload.split(' ').slice(1));
     } catch (error) {
       logger.info('Failed to parse command payload', error);
       return null;
