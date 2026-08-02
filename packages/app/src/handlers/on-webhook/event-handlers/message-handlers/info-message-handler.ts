@@ -44,7 +44,7 @@ const handler: MessageHandler = async (message) => {
     .filter(Boolean)
     .join('\n');
 
-  const poster = anime.poster?.originalUrl ?? await getJikanAnimePoster(commandDto.myAnimeListId);
+  const poster = anime.poster?.originalUrl ?? (await getJikanAnimePoster(commandDto.myAnimeListId));
   if (!poster) {
     throw new Error('Anime poster not found');
   }

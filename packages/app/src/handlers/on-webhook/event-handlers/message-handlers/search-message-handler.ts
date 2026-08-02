@@ -36,15 +36,13 @@ const handler: MessageHandler = async (message) => {
   const buttons = searchResults.map((result) => {
     const title = result.russian || result.name;
     const containsDuplicates = searchResults.filter((r) => r.russian === title || r.name === title).length > 1;
-    const deduplicatedTitle = containsDuplicates && result.airedOn?.year
-      ? `${title} (${result.airedOn?.year})`
-      : title;
+    const deduplicatedTitle = containsDuplicates && result.airedOn?.year ? `${title} (${result.airedOn?.year})` : title;
     const eclipsedText = eclipseText(deduplicatedTitle, 25, 10);
 
-    return ({
+    return {
       text: eclipsedText,
       callback_data: new InfoCommandDto(result.id).toString(),
-    });
+    };
   });
 
   const result = await sendMessage({

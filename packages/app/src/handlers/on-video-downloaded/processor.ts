@@ -37,11 +37,15 @@ const sendVideoMessages = async (
       logger.error('Error copying message', result);
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100)); // to avoid rate limits
+    await new Promise((resolve) => setTimeout(resolve, 100)); // to avoid rate limits
   }
-}
+};
 
-const sendErrorMessages = async (caption: string, keyboard: InlineKeyboardMarkup, chatIds: Set<number>): Promise<void> => {
+const sendErrorMessages = async (
+  caption: string,
+  keyboard: InlineKeyboardMarkup,
+  chatIds: Set<number>,
+): Promise<void> => {
   logger.info('Sending error messages');
 
   for (const chatId of chatIds) {
@@ -57,13 +61,11 @@ const sendErrorMessages = async (caption: string, keyboard: InlineKeyboardMarkup
       logger.error('Error sending error message', result);
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100)); // to avoid rate limits
+    await new Promise((resolve) => setTimeout(resolve, 100)); // to avoid rate limits
   }
-}
+};
 
-const notifySubscribers = async (
-  videoDownloadedNotification: VideoDownloadedNotification,
-): Promise<void> => {
+const notifySubscribers = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
   const { myAnimeListId, dub, episode } = videoDownloadedNotification.videoKey;
 
   const animeSubscriptions = await getSubscriptions(videoDownloadedNotification.videoKey);
@@ -83,7 +85,8 @@ const notifySubscribers = async (
   const description = getVideoDescription(
     animeInfo,
     videoDownloadedNotification.videoKey,
-    videoDownloadedNotification.scenes);
+    videoDownloadedNotification.scenes,
+  );
   const episodes = await getEpisodes(parseInt(animeInfo.id), dub);
   const keyboard = getKeyboard(
     videoDownloadedNotification.videoKey,
@@ -96,16 +99,16 @@ const notifySubscribers = async (
     await Promise.all([
       removeOneTimeSubscribers(videoKey),
       sendVideoMessages(messageId, description, keyboard, oneTimeSubscribers),
-    ])
+    ]);
   } else {
     await sendErrorMessages(description, keyboard, oneTimeSubscribers);
   }
-}
+};
 
 const registerInLibraryTable = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
   const { myAnimeListId, dub } = videoDownloadedNotification.videoKey;
   await registerVideo(myAnimeListId, dub);
-}
+};
 
 export const process = async (videoDownloadedNotification: VideoDownloadedNotification): Promise<void> => {
   logger.info('Processing videos', videoDownloadedNotification);
@@ -120,4 +123,4 @@ export const process = async (videoDownloadedNotification: VideoDownloadedNotifi
   }
 
   logger.info('Animes processed');
-}
+};

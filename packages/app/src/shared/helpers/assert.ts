@@ -3,4 +3,4 @@
     const messageText = typeof message === 'string' ? message : message();
     throw new Error(messageText);
   }
-}
+};

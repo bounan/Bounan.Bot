@@ -18,11 +18,7 @@ const handler: MessageHandler = async (message) => {
     chat_id: message.chat.id,
     text: Texts.Start,
     reply_markup: {
-      inline_keyboard: [
-        [
-          { text: Texts.Button__Search, switch_inline_query_current_chat: '' },
-        ],
-      ],
+      inline_keyboard: [[{ text: Texts.Button__Search, switch_inline_query_current_chat: '' }]],
     },
   });
   assert(result.ok, () => JSON.stringify(result));

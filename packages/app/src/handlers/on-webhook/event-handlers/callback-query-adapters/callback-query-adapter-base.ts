@@ -22,4 +22,4 @@ export const processCallbackQuery = async (
   });
 
   return {};
-}
+};

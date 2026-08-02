@@ -20,24 +20,13 @@ import { startMessageHandler } from './event-handlers/message-handlers/start-mes
 import { watchMessageHandler } from './event-handlers/message-handlers/watch-message-handler';
 
 const settings: BotSettings = {
-  onMessage: [
-    startMessageHandler,
-    knownInlineAnswerMessageHandler,
-    infoMessageHandler,
-    watchMessageHandler,
-  ],
+  onMessage: [startMessageHandler, knownInlineAnswerMessageHandler, infoMessageHandler, watchMessageHandler],
   onMessageDefault: searchMessageHandler.handler,
 
-  onInlineQuery: [
-    dubsInlineQueryHandler,
-    relatedInlineQueryHandler,
-  ],
+  onInlineQuery: [dubsInlineQueryHandler, relatedInlineQueryHandler],
   onInlineQueryDefault: searchInlineQueryHandler.handler,
 
-  onCallbackQuery: [
-    infoCallbackQueryHandler,
-    watchCallbackQueryHandler,
-  ],
+  onCallbackQuery: [infoCallbackQueryHandler, watchCallbackQueryHandler],
   onCallbackQueryDefault: async (callbackQuery: CallbackQuery) => {
     logger.error('Received unknown callback query', callbackQuery);
     return {
@@ -63,7 +52,11 @@ export const handler = async (event: APIGatewayEvent): Promise<APIGatewayProxyRe
     }
 
     const update = JSON.parse(event.body);
-    await retry(async () => await handleUpdate(update, settings), 3, () => true);
+    await retry(
+      async () => await handleUpdate(update, settings),
+      3,
+      () => true,
+    );
   } catch (error: unknown) {
     logger.error('Failed to process update', error);
   }

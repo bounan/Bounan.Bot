@@ -17,40 +17,48 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   const shikimoriResults = await searchAnime(inlineQuery.query);
   logger.info('Got search results', { query: inlineQuery.query, count: shikimoriResults.length });
 
-  const loanApiDubs = await Promise.all(shikimoriResults.map(async anime => ({
-    anime,
-    dubs: await getDubs(parseInt(anime.id)),
-  })));
-  const availableDubs = loanApiDubs.filter(x => x.dubs.length > 0);
+  const loanApiDubs = await Promise.all(
+    shikimoriResults.map(async (anime) => ({
+      anime,
+      dubs: await getDubs(parseInt(anime.id)),
+    })),
+  );
+  const availableDubs = loanApiDubs.filter((x) => x.dubs.length > 0);
 
-  const results: InlineQueryResultArticle[] = availableDubs.length === 0
-    ? [
-      {
-        type: 'article',
-        id: KnownInlineAnswers.NoResults,
-        title: KnownInlineAnswers.NoResults,
-        input_message_content: {
-          message_text: KnownInlineAnswers.NoResults,
-        },
-      },
-    ]
-    : availableDubs.map(pair => ({
-      type: 'article',
-      id: pair.anime.id.toString(),
-      title: pair.anime.russian || pair.anime.name,
-      description: [
-        pair.anime.airedOn?.year,
-        pair.anime.genres?.map(x => x.russian).join(', '),
-        pair.dubs.map(x => x.name).sort().join(', '),
-      ].filter(x => !!x).join('\n'),
-      thumbnail_url: pair.anime!.poster?.originalUrl,
-      input_message_content: {
-        message_text: new InfoCommandDto(pair.anime.id).toString(),
-      },
-    }));
+  const results: InlineQueryResultArticle[] =
+    availableDubs.length === 0
+      ? [
+          {
+            type: 'article',
+            id: KnownInlineAnswers.NoResults,
+            title: KnownInlineAnswers.NoResults,
+            input_message_content: {
+              message_text: KnownInlineAnswers.NoResults,
+            },
+          },
+        ]
+      : availableDubs.map((pair) => ({
+          type: 'article',
+          id: pair.anime.id.toString(),
+          title: pair.anime.russian || pair.anime.name,
+          description: [
+            pair.anime.airedOn?.year,
+            pair.anime.genres?.map((x) => x.russian).join(', '),
+            pair.dubs
+              .map((x) => x.name)
+              .sort()
+              .join(', '),
+          ]
+            .filter((x) => !!x)
+            .join('\n'),
+          thumbnail_url: pair.anime!.poster?.originalUrl,
+          input_message_content: {
+            message_text: new InfoCommandDto(pair.anime.id).toString(),
+          },
+        }));
 
   return results;
-}
+};
 
 export const searchInlineQueryHandler = {
   handler,

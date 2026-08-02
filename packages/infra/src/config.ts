@@ -29,7 +29,12 @@ export const getConfig = (stack: cdk.Stack, cfnPrefix: string, ssmPrefix: string
   telegramBotPublisherGroupName: getSsmValue(stack, ssmPrefix, 'telegramBotPublisherGroupName', configFile),
 
   getAnimeFunctionName: getCfnValue('getAnimeFunctionName', cfnPrefix, ExportNames.GetAnimeFunctionName, configFile),
-  videoDownloadedTopicArn: getCfnValue('videoDownloadedTopicArn', cfnPrefix, ExportNames.VideoDownloadedSnsTopicArn, configFile),
+  videoDownloadedTopicArn: getCfnValue(
+    'videoDownloadedTopicArn',
+    cfnPrefix,
+    ExportNames.VideoDownloadedSnsTopicArn,
+    configFile,
+  ),
 
   retriesMax: configFile.retriesMax || '1',
   retriesDelayMs: configFile.retriesDelayMs || '1000',

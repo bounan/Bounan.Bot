@@ -10,5 +10,6 @@
     logger.error(`Failed to execute function after ${retries} retries`);
     throw error;
   }
-}
+};
+
 import { logger } from '../logger';

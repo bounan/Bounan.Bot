@@ -1,9 +1,4 @@
-import {
-  CreateTableCommand,
-  DeleteTableCommand,
-  DynamoDBClient,
-  waitUntilTableExists,
-} from '@aws-sdk/client-dynamodb';
+import { CreateTableCommand, DeleteTableCommand, DynamoDBClient, waitUntilTableExists } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand, ScanCommand } from '@aws-sdk/lib-dynamodb';
 
 export class DynamoDbTableFixture {
@@ -24,16 +19,15 @@ export class DynamoDbTableFixture {
     }
 
     const fixture = new DynamoDbTableFixture(tableName);
-    await fixture.documentClient.send(new CreateTableCommand({
-      TableName: tableName,
-      AttributeDefinitions: [{ AttributeName: partitionKey.name, AttributeType: partitionKey.type }],
-      KeySchema: [{ AttributeName: partitionKey.name, KeyType: 'HASH' }],
-      BillingMode: 'PAY_PER_REQUEST',
-    }));
-    await waitUntilTableExists(
-      { client: fixture.client, maxWaitTime: 30 },
-      { TableName: tableName },
+    await fixture.documentClient.send(
+      new CreateTableCommand({
+        TableName: tableName,
+        AttributeDefinitions: [{ AttributeName: partitionKey.name, AttributeType: partitionKey.type }],
+        KeySchema: [{ AttributeName: partitionKey.name, KeyType: 'HASH' }],
+        BillingMode: 'PAY_PER_REQUEST',
+      }),
     );
+    await waitUntilTableExists({ client: fixture.client, maxWaitTime: 30 }, { TableName: tableName });
 
     return fixture;
   }

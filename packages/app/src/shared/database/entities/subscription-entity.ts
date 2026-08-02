@@ -8,7 +8,7 @@ export interface SubscriptionEntity extends AnimeKey {
   // Episode-ChatId pairs
   oneTimeSubscribers?: {
     [key: number]: Set<number>;
-  }
+  };
 
   createdAt: string;
   updatedAt: string;

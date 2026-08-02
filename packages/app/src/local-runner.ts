@@ -17,12 +17,12 @@ const onDownloaded = async (message: VideoDownloadedNotification) => {
   await onVideoDownloadedHandler({ Records: [{ Sns: { Message: JSON.stringify(message) } }] });
 
   logger.info('Message processed');
-}
+};
 
 const onWebhook = async (message: Update) => {
   // @ts-expect-error - we don't need to provide all the event properties
   await onWebhookHandler({ body: JSON.stringify(message) });
-}
+};
 
 const main = async () => {
   // await onDownloaded({
@@ -57,13 +57,15 @@ const main = async () => {
       offset: '',
     },
   });
-}
+};
 
 const pooling = async () => {
   await initConfig();
   let offset = 0;
   while (true) {
-    const result = await fetch(`https://api.telegram.org/bot${config.value.telegram.token}/getUpdates?offset=${offset}&timeout=60&allowed_updates=["callback_query","inline_query","message"]`);
+    const result = await fetch(
+      `https://api.telegram.org/bot${config.value.telegram.token}/getUpdates?offset=${offset}&timeout=60&allowed_updates=["callback_query","inline_query","message"]`,
+    );
     const updates = await result.json();
     offset = updates.result[updates.result?.length - 1]?.update_id + 1 || offset;
 
@@ -73,7 +75,7 @@ const pooling = async () => {
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
-}
+};
 
 process.env.AWS_PROFILE = 'hra';
 main();

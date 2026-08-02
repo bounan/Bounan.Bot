@@ -22,11 +22,10 @@ export class Stack extends cdk.Stack {
 
     const config = getConfig(this, 'bounan:', '/bounan/bot/deploy-config/');
 
-    const loanApiFunction = lambda.Function.fromFunctionAttributes(
-      this, 'LoanApiFunction', {
-        functionArn: config.loanApiFunctionArn,
-        skipPermissions: true,
-      });
+    const loanApiFunction = lambda.Function.fromFunctionAttributes(this, 'LoanApiFunction', {
+      functionArn: config.loanApiFunctionArn,
+      skipPermissions: true,
+    });
 
     const logGroup = this.createLogGroup();
     const tables = this.createTables();
@@ -35,12 +34,13 @@ export class Stack extends cdk.Stack {
     this.setErrorAlarm(logGroup, config);
 
     const videoDownloadedTopic = sns.Topic.fromTopicArn(
-      this, 'VideoDownloadedSnsTopic', config.videoDownloadedTopicArn);
-    videoDownloadedTopic.addSubscription(
-      new subs.LambdaSubscription(functions[LambdaHandler.OnVideoDownloaded]));
+      this,
+      'VideoDownloadedSnsTopic',
+      config.videoDownloadedTopicArn,
+    );
+    videoDownloadedTopic.addSubscription(new subs.LambdaSubscription(functions[LambdaHandler.OnVideoDownloaded]));
 
-    const getAnimeLambda = lambda.Function.fromFunctionName(
-      this, 'GetAnimeLambda', config.getAnimeFunctionName);
+    const getAnimeLambda = lambda.Function.fromFunctionName(this, 'GetAnimeLambda', config.getAnimeFunctionName);
     getAnimeLambda.grantInvoke(functions[LambdaHandler.OnWebhook]);
 
     const apiGateway = new apigateway.RestApi(this, 'WebhookApi', {});
@@ -49,7 +49,8 @@ export class Stack extends cdk.Stack {
     this.out('Config', JSON.stringify(config));
     this.out(
       'SetWebhookUrl',
-      `https://api.telegram.org/bot${config.telegramBotToken}/setWebhook?url=${apiGateway.url}`);
+      `https://api.telegram.org/bot${config.telegramBotToken}/setWebhook?url=${apiGateway.url}`,
+    );
   }
 
   private get isStage(): boolean {
@@ -88,7 +89,7 @@ export class Stack extends cdk.Stack {
       [Table.Users]: usersTable,
       [Table.Subscriptions]: subscriptionsTable,
       [Table.Library]: libraryTable,
-    }
+    };
   }
 
   private createLogGroup(): logs.LogGroup {
@@ -146,10 +147,7 @@ export class Stack extends cdk.Stack {
     return functions;
   }
 
-  private saveParameters(
-    tables: Record<Table, dynamodb.Table>,
-    config: Config,
-  ): ssm.StringParameter {
+  private saveParameters(tables: Record<Table, dynamodb.Table>, config: Config): ssm.StringParameter {
     const value = {
       animan: {
         getAnimeFunctionName: config.getAnimeFunctionName,

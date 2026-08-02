@@ -6,10 +6,7 @@ import { DynamoDbTableFixture } from '../tools/dynamodb';
 
 describe('Bounan DynamoDB records', () => {
   it('stores a library entry with its available dubs', async () => {
-    const table = await DynamoDbTableFixture.create(
-      `test-table-${randomUUID()}`,
-      { name: 'myAnimeListId', type: 'N' },
-    );
+    const table = await DynamoDbTableFixture.create(`test-table-${randomUUID()}`, { name: 'myAnimeListId', type: 'N' });
 
     try {
       const record = {
@@ -20,17 +17,13 @@ describe('Bounan DynamoDB records', () => {
       await table.put(record);
 
       await expect(table.getAll()).resolves.toEqual([record]);
-    }
-    finally {
+    } finally {
       await table.drop();
     }
   });
 
   it('stores one-time episode subscribers', async () => {
-    const table = await DynamoDbTableFixture.create(
-      `test-table-${randomUUID()}`,
-      { name: 'animeKey', type: 'S' },
-    );
+    const table = await DynamoDbTableFixture.create(`test-table-${randomUUID()}`, { name: 'animeKey', type: 'S' });
 
     try {
       const record = {
@@ -43,8 +36,7 @@ describe('Bounan DynamoDB records', () => {
       await table.put(record);
 
       await expect(table.getAll()).resolves.toEqual([record]);
-    }
-    finally {
+    } finally {
       await table.drop();
     }
   });

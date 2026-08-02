@@ -139,4 +139,4 @@ export const studioLogosList = [
   'Ушастая озвучка-s',
   'Ушастая озвучка',
   '!Subs',
-]
+];

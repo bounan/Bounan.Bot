@@ -7,8 +7,7 @@ export abstract class CommandDto {
 
   public static fromPayload(payload: string): CommandDto | null {
     try {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return new (this as any)(...payload.split(' ').slice(1));
+      return new (CommandDto as any)(...payload.split(' ').slice(1));
     } catch (error) {
       logger.info('Failed to parse command payload', error);
       return null;
@@ -16,6 +15,6 @@ export abstract class CommandDto {
   }
 
   public toString(): string {
-    return [this.command, ...this.properties.map(prop => this[prop])].join(' ');
+    return [this.command, ...this.properties.map((prop) => this[prop])].join(' ');
   }
 }

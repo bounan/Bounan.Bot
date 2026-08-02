@@ -10,13 +10,11 @@ import { DubsCommandDto, WatchCommandDto } from '../../command-dtos';
 import { KnownInlineAnswers } from '../../constants/known-inline-answers';
 import type { InlineQueryHandler } from '../query-handler';
 
-const getDescription = (
-  dub: Awaited<ReturnType<typeof getDubs>>[0],
-  registeredDubs: Set<string>,
-): string => {
-  const prefix = dub.firstEpisode === 0 && dub.lastEpisode === undefined
-    ? Texts.Dubs__Description__Type__Movie
-    : `${Texts.Dubs__Description__Type__Series} ${dub.firstEpisode} - ${dub.lastEpisode ?? '?'}`;
+const getDescription = (dub: Awaited<ReturnType<typeof getDubs>>[0], registeredDubs: Set<string>): string => {
+  const prefix =
+    dub.firstEpisode === 0 && dub.lastEpisode === undefined
+      ? Texts.Dubs__Description__Type__Movie
+      : `${Texts.Dubs__Description__Type__Series} ${dub.firstEpisode} - ${dub.lastEpisode ?? '?'}`;
 
   const registeredSuffix = registeredDubs.has(dub.name)
     ? Texts.Dubs__Description__AvailableNow
@@ -41,14 +39,16 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   const uniqueDubs = await getDubs(commandDto.myAnimeListId);
   logger.info('Got dubs', { myAnimeListId: commandDto.myAnimeListId, dubs: uniqueDubs });
   if (uniqueDubs.length === 0) {
-    return [{
-      type: 'article',
-      id: KnownInlineAnswers.AnimeUnavailable,
-      title: KnownInlineAnswers.AnimeUnavailable,
-      input_message_content: {
-        message_text: KnownInlineAnswers.AnimeUnavailable,
+    return [
+      {
+        type: 'article',
+        id: KnownInlineAnswers.AnimeUnavailable,
+        title: KnownInlineAnswers.AnimeUnavailable,
+        input_message_content: {
+          message_text: KnownInlineAnswers.AnimeUnavailable,
+        },
       },
-    }];
+    ];
   }
 
   const registeredDubs = await registeredDubsTask;
@@ -56,29 +56,23 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   const sortedDubs = [...uniqueDubs].sort((a, b) => {
     const aSortPriority = registeredDubs.has(a.name) ? 0 : 1;
     const bSortPriority = registeredDubs.has(b.name) ? 0 : 1;
-    return aSortPriority !== bSortPriority
-      ? aSortPriority - bSortPriority
-      : a.name.localeCompare(b.name);
+    return aSortPriority !== bSortPriority ? aSortPriority - bSortPriority : a.name.localeCompare(b.name);
   });
 
-  const results: InlineQueryResultArticle[] = sortedDubs.map(item => ({
+  const results: InlineQueryResultArticle[] = sortedDubs.map((item) => ({
     type: 'article',
     id: item.name,
     title: item.name,
     description: getDescription(item, registeredDubs),
     thumbnail_url: getStudioLogoUrl(item.name),
     input_message_content: {
-      message_text: new WatchCommandDto(
-        commandDto.myAnimeListId,
-        dubToKey(item.name),
-        item.firstEpisode,
-      ).toString(),
+      message_text: new WatchCommandDto(commandDto.myAnimeListId, dubToKey(item.name), item.firstEpisode).toString(),
     },
   }));
 
   logger.info('Returning dubs', { count: results.length, myAnimeListId: commandDto.myAnimeListId });
   return results;
-}
+};
 
 export const dubsInlineQueryHandler = {
   canHandle,

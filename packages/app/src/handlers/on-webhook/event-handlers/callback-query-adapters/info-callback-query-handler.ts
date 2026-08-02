@@ -13,4 +13,4 @@ const handler: CallbackQueryHandler = async (callbackQuery) =>
 export const infoCallbackQueryHandler = {
   canHandle,
   handler,
-}
+};

@@ -34,15 +34,17 @@ export const registerNewUserIfNotExists = async (userId: number): Promise<void> 
   }
 
   logger.info('Register user result', result);
-}
+};
 
 export const getUserStatus = async (userId: number): Promise<UserStatus> => {
-  const response = await docClient.send(new GetCommand({
-    TableName: config.value.database.usersTableName,
-    Key: { userId },
-    ProjectionExpression: '#status',
-    ExpressionAttributeNames: { '#status': 'status' },
-  }));
+  const response = await docClient.send(
+    new GetCommand({
+      TableName: config.value.database.usersTableName,
+      Key: { userId },
+      ProjectionExpression: '#status',
+      ExpressionAttributeNames: { '#status': 'status' },
+    }),
+  );
 
   return (response.Item as UserEntity).status;
-}
+};

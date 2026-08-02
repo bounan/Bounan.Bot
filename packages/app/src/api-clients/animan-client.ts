@@ -11,7 +11,7 @@ export const getVideoInfo = async (videoKey: VideoKey): Promise<BotResponse> => 
       dub: videoKey.dub,
       episode: videoKey.episode,
     },
-  }
+  };
 
   const result = await makeLambdaRequest<BotRequest, BotResponse>(
     config.value.animan.getAnimeFunctionName,
@@ -21,4 +21,4 @@ export const getVideoInfo = async (videoKey: VideoKey): Promise<BotResponse> => 
   assert('status' in result);
 
   return result;
-}
+};

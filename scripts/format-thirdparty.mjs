@@ -15,11 +15,10 @@ const ALLOWED_LICENSES = [
 ];
 
 const input = JSON.parse(fs.readFileSync('thirdparty.json', 'utf8'));
-const getVersions = pkg => pkg.version || pkg.versions?.join(', ') || 'UNKNOWN';
+const getVersions = (pkg) => pkg.version || pkg.versions?.join(', ') || 'UNKNOWN';
 const packages = Object.values(input)
   .flat()
-  .sort((left, right) =>
-    `${left.name}@${getVersions(left)}`.localeCompare(`${right.name}@${getVersions(right)}`));
+  .sort((left, right) => `${left.name}@${getVersions(left)}`.localeCompare(`${right.name}@${getVersions(right)}`));
 
 const lines = [
   '# Third-Party Notices',

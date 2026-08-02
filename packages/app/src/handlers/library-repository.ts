@@ -5,7 +5,6 @@ import type { LibraryEntity } from '../shared/database/entities/library-entity';
 import { docClient } from '../shared/database/repository';
 import { logger } from '../shared/logger';
 
-
 export const registerVideo = async (myAnimeListId: number, dub: string): Promise<void> => {
   const command = new UpdateCommand({
     TableName: config.value.database.libraryTableName,
@@ -19,7 +18,7 @@ export const registerVideo = async (myAnimeListId: number, dub: string): Promise
 
   const result = await docClient.send(command);
   logger.info('Registered video', result);
-}
+};
 
 export const getRegisteredDubs = async (myAnimeListId: number): Promise<Set<string>> => {
   const command = new GetCommand({
@@ -32,4 +31,4 @@ export const getRegisteredDubs = async (myAnimeListId: number): Promise<Set<stri
   logger.info('Library entity', result.Item);
 
   return (result.Item as LibraryEntity)?.dubs || new Set<string>();
-}
+};

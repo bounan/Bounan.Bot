@@ -39,7 +39,7 @@ const ensureUserExistsAndGetStatus = async (userId: number | undefined): Promise
   await registerNewUserIfNotExists(userId);
 
   return getUserStatus(userId);
-}
+};
 
 const tryHandleUpdate = async <TUpdateField, TResult>(
   updateField: TUpdateField,
@@ -54,7 +54,7 @@ const tryHandleUpdate = async <TUpdateField, TResult>(
   } else {
     return null;
   }
-}
+};
 
 export const handleUpdate = async (update: Update, settings: BotSettings): Promise<void> => {
   logger.info('Processing update', update);
@@ -77,7 +77,8 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
     const result = await tryHandleUpdate<CallbackQuery, Omit<AnswerCallbackQueryData, 'callback_query_id'>>(
       update.callback_query,
       settings.onCallbackQuery,
-      settings.onCallbackQueryDefault);
+      settings.onCallbackQueryDefault,
+    );
     logger.info('Callback query processed', result);
 
     if (result) {
@@ -97,7 +98,8 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
     const results = await tryHandleUpdate<InlineQuery, InlineQueryResult[]>(
       update.inline_query,
       settings.onInlineQuery,
-      settings.onInlineQueryDefault);
+      settings.onInlineQueryDefault,
+    );
     logger.info('Inline query processed', results);
 
     if (results) {
@@ -110,4 +112,4 @@ export const handleUpdate = async (update: Update, settings: BotSettings): Promi
   }
 
   logger.info('Update processed');
-}
+};

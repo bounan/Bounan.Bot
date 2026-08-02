@@ -3,4 +3,4 @@ export type LibraryEntity = {
   dubs: Set<string>;
   createdAt: string;
   updatedAt: string;
-}
+};

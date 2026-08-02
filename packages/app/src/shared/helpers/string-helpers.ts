@@ -4,4 +4,4 @@
   }
 
   return `${text.slice(0, maxBefore).trim()} ... ${text.slice(-maxAfter).trim()}`;
-}
+};

@@ -20,32 +20,33 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   }
 
   const relatedRes = await getRelated(commandDto.myAnimeListId);
-  const relatedAnimes = relatedRes.flatMap(x => x.related).filter(x => x?.anime) as Related[];
-  const items: InlineQueryResultArticle[] = relatedAnimes.length === 0
-    ? [
-      {
-        type: 'article',
-        id: KnownInlineAnswers.NoRelatedAnime,
-        title: KnownInlineAnswers.NoRelatedAnime,
-        input_message_content: {
-          message_text: KnownInlineAnswers.NoRelatedAnime,
-        },
-      },
-    ]
-    : relatedAnimes.map(item => ({
-      type: 'article',
-      id: item!.anime!.id.toString(),
-      title: item.anime!.russian || item.anime!.name,
-      description: [item.relationText, item!.anime!.airedOn?.year].filter(x => !!x).join(', '),
-      thumbnail_url: item.anime?.poster?.originalUrl,
-      input_message_content: {
-        message_text: new InfoCommandDto(item.anime!.id).toString(),
-      },
-    }));
+  const relatedAnimes = relatedRes.flatMap((x) => x.related).filter((x) => x?.anime) as Related[];
+  const items: InlineQueryResultArticle[] =
+    relatedAnimes.length === 0
+      ? [
+          {
+            type: 'article',
+            id: KnownInlineAnswers.NoRelatedAnime,
+            title: KnownInlineAnswers.NoRelatedAnime,
+            input_message_content: {
+              message_text: KnownInlineAnswers.NoRelatedAnime,
+            },
+          },
+        ]
+      : relatedAnimes.map((item) => ({
+          type: 'article',
+          id: item!.anime!.id.toString(),
+          title: item.anime!.russian || item.anime!.name,
+          description: [item.relationText, item!.anime!.airedOn?.year].filter((x) => !!x).join(', '),
+          thumbnail_url: item.anime?.poster?.originalUrl,
+          input_message_content: {
+            message_text: new InfoCommandDto(item.anime!.id).toString(),
+          },
+        }));
 
   logger.info('Returning related animes', { count: items.length, myAnimeListId: commandDto.myAnimeListId });
   return items;
-}
+};
 
 export const relatedInlineQueryHandler = {
   canHandle,

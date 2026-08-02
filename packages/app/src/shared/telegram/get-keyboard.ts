@@ -24,23 +24,21 @@ const getEpisodeRows = (
   const buttonsToDisplay = episodesPerPage[currentPageIndex];
 
   return buttonsToDisplay
-    .map(ep => ep === currentVideo.episode
-      ? { text: `[${ep}]`, url: 'tg://placeholder' }
-      : {
-        text: ep.toString(),
-        callback_data: new WatchCommandDto(
-          currentVideo.myAnimeListId,
-          dubToKey(currentVideo.dub),
-          ep,
-        ).toString(),
-      })
+    .map((ep) =>
+      ep === currentVideo.episode
+        ? { text: `[${ep}]`, url: 'tg://placeholder' }
+        : {
+            text: ep.toString(),
+            callback_data: new WatchCommandDto(currentVideo.myAnimeListId, dubToKey(currentVideo.dub), ep).toString(),
+          },
+    )
     .map((btn, index) => ({ btn, index }))
     .reduce((acc, { btn, index }) => {
       const groupIndex = Math.floor(index / COLUMNS);
       acc[groupIndex] = [...(acc[groupIndex] || []), btn];
       return acc;
     }, [] as InlineKeyboardButton[][]);
-}
+};
 
 const getControlRow = (
   currentVideo: VideoKey,
@@ -85,7 +83,7 @@ const getControlRow = (
   }
 
   return controlRow;
-}
+};
 
 export const getKeyboard = (
   currentVideo: VideoKey,
@@ -101,15 +99,12 @@ export const getKeyboard = (
       return acc;
     }, [] as number[][]);
 
-  const currentPageIndex = episodesPerPage.findIndex(page => page.includes(currentVideo.episode));
+  const currentPageIndex = episodesPerPage.findIndex((page) => page.includes(currentVideo.episode));
 
   const episodeRows = getEpisodeRows(currentVideo, episodesPerPage, currentPageIndex);
   const controlRow = getControlRow(currentVideo, publishingDetails, currentPageIndex, episodesPerPage);
 
   return {
-    inline_keyboard: [
-      ...episodeRows,
-      controlRow,
-    ],
-  }
-}
+    inline_keyboard: [...episodeRows, controlRow],
+  };
+};

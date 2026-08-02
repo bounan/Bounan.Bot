@@ -27,13 +27,15 @@ const sendSwitchDubButtons = async (chatId: number, myAnimeListId: number, dubNa
     chat_id: chatId,
     text: Texts.Message__EpisodeWithDubNotFound,
     reply_markup: {
-      inline_keyboard: dubNames.map(dub => [{
-        text: dub,
-        callback_data: new WatchCommandDto(myAnimeListId, dubToKey(dub), episode).toString(),
-      }]),
+      inline_keyboard: dubNames.map((dub) => [
+        {
+          text: dub,
+          callback_data: new WatchCommandDto(myAnimeListId, dubToKey(dub), episode).toString(),
+        },
+      ]),
     },
   });
-}
+};
 
 const sendVideo = async (
   message: Pick<Message, 'chat' | 'text'>,
@@ -55,7 +57,7 @@ const sendVideo = async (
 
   logger.info('Sending video', args);
   await copyMessage(args);
-}
+};
 
 const sendVideoResult = async (
   message: Pick<Message, 'chat' | 'text'>,
@@ -112,7 +114,7 @@ const sendVideoResult = async (
     default:
       throw new Error(`Unknown video status: ${videoInfo.status}`);
   }
-}
+};
 
 const canHandle = (message: Message): boolean => message.text?.startsWith(WatchCommandDto.Command) ?? false;
 
@@ -130,7 +132,7 @@ const handler: MessageHandler = async (message) => {
   }
 
   const allDubs = await getDubs(commandDto.myAnimeListId);
-  const matchingDub = allDubs.find(dub => dubToKey(dub.name) === dubToKey(commandDto.dub));
+  const matchingDub = allDubs.find((dub) => dubToKey(dub.name) === dubToKey(commandDto.dub));
   if (!matchingDub) {
     logger.info('No matching dub found');
     await sendMessage({
@@ -145,9 +147,7 @@ const handler: MessageHandler = async (message) => {
   const allEpisodes = await getEpisodes(videoKey.myAnimeListId, videoKey.dub);
   if (!allEpisodes || allEpisodes.length === 0) {
     logger.info('Episode not found in dub', videoKey);
-    const otherDubs = allDubs
-      .map(dub => dub.name)
-      .filter(dubName => dubName !== videoKey.dub);
+    const otherDubs = allDubs.map((dub) => dub.name).filter((dubName) => dubName !== videoKey.dub);
     await sendSwitchDubButtons(message.chat.id, videoKey.myAnimeListId, otherDubs, videoKey.episode);
     return;
   }
@@ -155,7 +155,7 @@ const handler: MessageHandler = async (message) => {
   await sendVideoResult(message, videoKey, allEpisodes);
 
   logger.info('Watch command handled');
-}
+};
 
 export const watchMessageHandler = {
   canHandle,

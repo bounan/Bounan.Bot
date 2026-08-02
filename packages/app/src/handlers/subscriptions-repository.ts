@@ -9,7 +9,7 @@ import { logger } from '../shared/logger';
 
 const getAnimeKey = (animeKey: AnimeKey): string => {
   return `${animeKey.myAnimeListId}#${animeKey.dub}`;
-}
+};
 
 type GetSubscriptionsResult = Pick<SubscriptionEntity, 'oneTimeSubscribers'>;
 
@@ -24,7 +24,7 @@ export const getSubscriptions = async (animeKey: AnimeKey): Promise<GetSubscript
   logger.info('Subscriptions', result.Item);
 
   return result.Item as GetSubscriptionsResult;
-}
+};
 
 export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Promise<void> => {
   const existingSubscriptions = await getSubscriptions(videoKey);
@@ -53,7 +53,8 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
   const command = new UpdateCommand({
     TableName: config.value.database.subscriptionsTableName,
     Key: { animeKey: getAnimeKey(videoKey) },
-    UpdateExpression: 'ADD oneTimeSubscribers.#episode :chatId SET updatedAt = :updatedAt, createdAt = if_not_exists(createdAt, :updatedAt)',
+    UpdateExpression:
+      'ADD oneTimeSubscribers.#episode :chatId SET updatedAt = :updatedAt, createdAt = if_not_exists(createdAt, :updatedAt)',
     ExpressionAttributeNames: {
       '#episode': videoKey.episode.toString(),
     },
@@ -65,7 +66,7 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
 
   const result = await docClient.send(command);
   logger.info('Subscribed one-time', result);
-}
+};
 
 export const removeOneTimeSubscribers = async (videoKey: VideoKey): Promise<void> => {
   const command = new UpdateCommand({
@@ -83,4 +84,4 @@ export const removeOneTimeSubscribers = async (videoKey: VideoKey): Promise<void
 
   const result = await docClient.send(command);
   logger.info('Removed one-time subscribers', result);
-}
+};

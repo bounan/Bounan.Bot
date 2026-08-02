@@ -2,7 +2,6 @@ import { makeLambdaRequest } from '../../../../third-party/common/ts/runtime/lam
 import { asyncMemoized } from '../../../../third-party/common/ts/runtime/memorized';
 import { config } from '../config/config';
 
-
 type GetDubsRequest = { myAnimeListId: number };
 type GetDubsResponseItem = {
   name: string;
@@ -16,21 +15,16 @@ type GetDubsResponse = GetDubsResponseItem[];
 type GetEpisodesRequest = { myAnimeListId: number; dub: string };
 type GetEpisodesResponse = number[];
 
-
 const getDubsInternal = (myAnimeListId: number): Promise<GetDubsResponse> => {
-  return makeLambdaRequest<GetDubsRequest, GetDubsResponse>(
-    config.value.loanApi.functionArn,
-    { myAnimeListId },
-  );
-}
+  return makeLambdaRequest<GetDubsRequest, GetDubsResponse>(config.value.loanApi.functionArn, { myAnimeListId });
+};
 
 const getEpisodesInternal = (myAnimeListId: number, dub: string): Promise<GetEpisodesResponse> => {
-  return makeLambdaRequest<GetEpisodesRequest, GetEpisodesResponse>(
-    config.value.loanApi.functionArn,
-    { myAnimeListId, dub },
-  );
-}
-
+  return makeLambdaRequest<GetEpisodesRequest, GetEpisodesResponse>(config.value.loanApi.functionArn, {
+    myAnimeListId,
+    dub,
+  });
+};
 
 export const getDubs = asyncMemoized('getDubs', getDubsInternal);
 

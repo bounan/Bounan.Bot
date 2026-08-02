@@ -4,8 +4,8 @@ import type { Config } from './types';
 let cachedConfig: Config | undefined;
 
 export const initConfig = async (): Promise<void> => {
-  cachedConfig = await fetchSsmValue('/bounan/bot/runtime-config') as Config;
-}
+  cachedConfig = (await fetchSsmValue('/bounan/bot/runtime-config')) as Config;
+};
 
 export const config = {
   get value() {
@@ -15,4 +15,4 @@ export const config = {
 
     return cachedConfig;
   },
-}
+};
