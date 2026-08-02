@@ -3,8 +3,9 @@
   "private": true,
   "scripts": {
     "typecheck": "pnpm -r run typecheck",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
+    "lint": "biome check .",
+    "lint-fix": "biome check --write .",
+    "format": "biome format --write .",
     "knip": "knip",
     "test": "vitest run --coverage",
     "test:ci": "vitest run --coverage.enabled=false",
@@ -37,15 +38,12 @@
   },
   "packageManager": "pnpm@11.17.0",
   "devDependencies": {
-    "@eslint/js": "catalog:",
+    "@biomejs/biome": "catalog:",
     "@vitest/coverage-v8": "catalog:",
     "@vitest/ui": "catalog:",
-    "eslint": "catalog:",
-    "eslint-plugin-simple-import-sort": "catalog:",
     "jiti": "catalog:",
     "knip": "catalog:",
     "npm-run-all2": "catalog:",
-    "typescript-eslint": "catalog:",
     "vitest": "catalog:"
   }
 }

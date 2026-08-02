@@ -45,7 +45,7 @@ jobs:
               - 'pnpm-lock.yaml'
               - 'pnpm-workspace.yaml'
               - '**/tsconfig*.json'
-              - 'eslint.config.*'
+              - 'biome.json*'
               - 'vitest.config.*'
               - 'knip.json'
 

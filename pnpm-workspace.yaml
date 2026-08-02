@@ -9,11 +9,11 @@ allowBuilds:
 blockExoticSubdeps: true
 
 catalog:
+  '@biomejs/biome': 2.5.6
   '@aws-sdk/client-dynamodb': 3.1094.0
   '@aws-sdk/client-lambda': 3.1094.0
   '@aws-sdk/client-ssm': 3.1094.0
   '@aws-sdk/lib-dynamodb': 3.1094.0
-  '@eslint/js': 10.0.1
   '@lightweight-clients/jikan-api-lightweight-client': 4.0.2
   '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.2.0
   '@lightweight-clients/telegram-bot-api-lightweight-client': 10.2.0
@@ -26,13 +26,10 @@ catalog:
   cdk-lambda-llrt: 0.1.4
   constructs: 10.7.1
   cross-env: 10.1.0
-  eslint: 10.7.0
-  eslint-plugin-simple-import-sort: 14.0.0
   jiti: 2.7.0
   knip: 6.29.0
   npm-run-all2: 9.0.2
   typescript: 6.0.3
-  typescript-eslint: 8.65.0
   vitest: 4.1.10
 
 # Delay newly published versions for one day to reduce supply-chain risk.
@@ -41,10 +38,5 @@ minimumReleaseAge: 1440
 # Use hoisted node linker for compatibility with LlrtFunction construct. This construct bundles
 # dependencies using docker, which does not work with host's symlinks.
 nodeLinker: hoisted
-
-onlyBuiltDependencies:
-  - aws-sdk
-  - esbuild
-  - msw
 
 trustPolicy: no-downgrade
