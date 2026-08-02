@@ -1,4 +1,4 @@
-﻿import { sendMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
+import { sendMessage } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { searchAnime } from '../../../../api-clients/cached-shikimori-client';
 import { assert } from '../../../../shared/helpers/assert';
@@ -13,7 +13,9 @@ const canHandle = (): boolean => {
 };
 
 const handler: MessageHandler = async (message) => {
-  assert(!!message?.chat?.id);
+  if (!message.chat?.id) {
+    throw new Error('Search message is missing a chat ID');
+  }
   if (!message?.text?.trim()) {
     logger.info('Empty search query; ignoring possible group message');
     return;
@@ -21,7 +23,7 @@ const handler: MessageHandler = async (message) => {
 
   logger.info('Handling search query', message.text);
 
-  const searchResults = await searchAnime(message.text!);
+  const searchResults = await searchAnime(message.text);
   if (!searchResults || searchResults.length === 0) {
     logger.info('No search results');
     await sendMessage({

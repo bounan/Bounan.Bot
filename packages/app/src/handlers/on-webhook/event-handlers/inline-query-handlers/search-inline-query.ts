@@ -20,7 +20,7 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   const loanApiDubs = await Promise.all(
     shikimoriResults.map(async (anime) => ({
       anime,
-      dubs: await getDubs(parseInt(anime.id)),
+      dubs: await getDubs(parseInt(anime.id, 10)),
     })),
   );
   const availableDubs = loanApiDubs.filter((x) => x.dubs.length > 0);
@@ -51,7 +51,7 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
           ]
             .filter((x) => !!x)
             .join('\n'),
-          thumbnail_url: pair.anime!.poster?.originalUrl,
+          thumbnail_url: pair.anime?.poster?.originalUrl,
           input_message_content: {
             message_text: new InfoCommandDto(pair.anime.id).toString(),
           },

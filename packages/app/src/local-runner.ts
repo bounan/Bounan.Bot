@@ -10,7 +10,7 @@ import { handler as onVideoDownloadedHandler } from './handlers/on-video-downloa
 import { handler as onWebhookHandler } from './handlers/on-webhook/handler';
 import { logger } from './shared/logger';
 
-const onDownloaded = async (message: VideoDownloadedNotification) => {
+const _onDownloaded = async (message: VideoDownloadedNotification) => {
   logger.info('Processing message', message);
 
   // @ts-expect-error - we don't need to provide all the event properties
@@ -59,7 +59,7 @@ const main = async () => {
   });
 };
 
-const pooling = async () => {
+const _pooling = async () => {
   await initConfig();
   let offset = 0;
   while (true) {

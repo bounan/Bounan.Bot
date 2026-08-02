@@ -12,7 +12,7 @@ export class InfoCommandDto extends CommandDto {
 
   constructor(myAnimeListId: number | string) {
     super();
-    this.myAnimeListId = typeof myAnimeListId === 'string' ? parseInt(myAnimeListId) : myAnimeListId;
+    this.myAnimeListId = typeof myAnimeListId === 'string' ? parseInt(myAnimeListId, 10) : myAnimeListId;
     validateMyAnimeListId(this.myAnimeListId);
   }
 }

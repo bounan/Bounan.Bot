@@ -1,4 +1,3 @@
-﻿import type { Related } from '@lightweight-clients/shikimori-graphql-api-lightweight-client';
 import type { InlineQuery, InlineQueryResultArticle } from '@lightweight-clients/telegram-bot-api-lightweight-client';
 
 import { getRelated } from '../../../../api-clients/cached-shikimori-client';
@@ -20,7 +19,12 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
   }
 
   const relatedRes = await getRelated(commandDto.myAnimeListId);
-  const relatedAnimes = relatedRes.flatMap((x) => x.related).filter((x) => x?.anime) as Related[];
+  const relatedAnimes = relatedRes
+    .flatMap((x) => x.related)
+    .flatMap((item) => {
+      const anime = item?.anime;
+      return anime?.id && anime.name ? [{ anime, relationText: item?.relationText }] : [];
+    });
   const items: InlineQueryResultArticle[] =
     relatedAnimes.length === 0
       ? [
@@ -35,12 +39,12 @@ const handler: InlineQueryHandler = async (inlineQuery) => {
         ]
       : relatedAnimes.map((item) => ({
           type: 'article',
-          id: item!.anime!.id.toString(),
-          title: item.anime!.russian || item.anime!.name,
-          description: [item.relationText, item!.anime!.airedOn?.year].filter((x) => !!x).join(', '),
-          thumbnail_url: item.anime?.poster?.originalUrl,
+          id: item.anime.id.toString(),
+          title: item.anime.russian || item.anime.name,
+          description: [item.relationText, item.anime.airedOn?.year].filter((x) => !!x).join(', '),
+          thumbnail_url: item.anime.poster?.originalUrl,
           input_message_content: {
-            message_text: new InfoCommandDto(item.anime!.id).toString(),
+            message_text: new InfoCommandDto(item.anime.id).toString(),
           },
         }));
 

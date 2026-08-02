@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   InlineKeyboardButton,
   InlineKeyboardMarkup,
 } from '@lightweight-clients/telegram-bot-api-lightweight-client';
@@ -61,12 +61,17 @@ const getControlRow = (
   const isLastPage = currentPageIndex === episodesPerPage.length - 1;
 
   if (!isFirstPage) {
+    const previousEpisode = episodesPerPage[currentPageIndex - 1].at(-1);
+    if (previousEpisode === undefined) {
+      throw new Error('Previous episode page is empty');
+    }
+
     controlRow.unshift({
       text: Texts.Button__PreviousEpisode,
       callback_data: new WatchCommandDto(
         currentVideo.myAnimeListId,
         dubToKey(currentVideo.dub),
-        episodesPerPage[currentPageIndex - 1].pop()!,
+        previousEpisode,
       ).toString(),
     });
   }

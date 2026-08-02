@@ -34,7 +34,7 @@ export const subscribeOneTime = async (videoKey: VideoKey, chatId: number): Prom
     return;
   }
 
-  if (!existingSubscriptions || !existingSubscriptions.oneTimeSubscribers) {
+  if (!existingSubscriptions?.oneTimeSubscribers) {
     logger.info('Creating one-time subscribers map');
     const command = new UpdateCommand({
       TableName: config.value.database.subscriptionsTableName,
