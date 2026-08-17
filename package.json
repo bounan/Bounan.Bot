@@ -36,7 +36,7 @@
     "npm": "please-use-pnpm",
     "yarn": "please-use-pnpm"
   },
-  "packageManager": "pnpm@11.20.0",
+  "packageManager": "pnpm@11.21.0",
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@vitest/coverage-v8": "catalog:",
