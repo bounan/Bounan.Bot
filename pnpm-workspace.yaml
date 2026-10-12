@@ -10,10 +10,10 @@ blockExoticSubdeps: true
 
 catalog:
   '@biomejs/biome': 2.5.15
-  '@aws-sdk/client-dynamodb': 3.1145.0
-  '@aws-sdk/client-lambda': 3.1145.0
-  '@aws-sdk/client-ssm': 3.1145.0
-  '@aws-sdk/lib-dynamodb': 3.1145.0
+  '@aws-sdk/client-dynamodb': 3.1148.0
+  '@aws-sdk/client-lambda': 3.1148.0
+  '@aws-sdk/client-ssm': 3.1148.0
+  '@aws-sdk/lib-dynamodb': 3.1148.0
   '@lightweight-clients/jikan-api-lightweight-client': 4.0.2
   '@lightweight-clients/shikimori-graphql-api-lightweight-client': 1.2.0
   '@lightweight-clients/telegram-bot-api-lightweight-client': 10.3.0
@@ -21,13 +21,13 @@ catalog:
   '@types/node': 25.9.9
   '@vitest/coverage-v8': 4.1.11
   '@vitest/ui': 4.1.11
-  aws-cdk: 2.1144.0
-  aws-cdk-lib: 2.272.0
+  aws-cdk: 2.1145.0
+  aws-cdk-lib: 2.273.0
   cdk-lambda-llrt: 0.1.4
   constructs: 10.8.1
   cross-env: 10.1.0
   jiti: 2.7.0
-  knip: 6.39.0
+  knip: 6.40.0
   npm-run-all2: 9.0.3
   typescript: 7.0.2
   vitest: 4.1.11
