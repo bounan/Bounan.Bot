@@ -8,6 +8,9 @@ allowBuilds:
 
 blockExoticSubdeps: true
 
+overrides:
+  "@smithy/types": 4.20.0
+
 catalog:
   "@biomejs/biome": 2.6.6
   "@aws-sdk/client-dynamodb": 3.1164.0
