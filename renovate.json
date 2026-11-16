@@ -6,6 +6,7 @@
   },
   "prHourlyLimit": 0,
   "prConcurrentLimit": 3,
+  "platformAutomerge": false,
   "packageRules": [
     {
       "description": "Group and automerge updates that do not change a major version",
