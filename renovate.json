@@ -1,9 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices", "schedule:earlyMondays"],
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "prHourlyLimit": 0,
   "prConcurrentLimit": 3,
+  "platformAutomerge": false,
   "packageRules": [
     {
       "description": "Group and automerge updates that do not change a major version",
