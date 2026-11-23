@@ -35,7 +35,7 @@ jobs:
 
       - name: Bump version and push tag
         id: tag
-        uses: step-security/github-tag-action@9c71d71802cca8038be2220876265db07000b404 # v6.2.1
+        uses: step-security/github-tag-action@dd2b178882cb75cf859679b69df1e5792d8bd8ed # v7.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag_prefix: ""
